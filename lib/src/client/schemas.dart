@@ -131,7 +131,7 @@ Possible values are:
   }
 
   /** Return String representation of AchievementDefinition */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -178,7 +178,7 @@ class AchievementDefinitionsListResponse {
   }
 
   /** Return String representation of AchievementDefinitionsListResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -225,7 +225,7 @@ class AchievementIncrementResponse {
   }
 
   /** Return String representation of AchievementIncrementResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -266,7 +266,7 @@ Possible values are:
   }
 
   /** Return String representation of AchievementRevealResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -304,7 +304,7 @@ class AchievementUnlockResponse {
   }
 
   /** Return String representation of AchievementUnlockResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -369,7 +369,7 @@ class AggregateStats {
   }
 
   /** Return String representation of AggregateStats */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -416,7 +416,7 @@ class AnonymousPlayer {
   }
 
   /** Return String representation of AnonymousPlayer */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -535,7 +535,7 @@ class Application {
   }
 
   /** Return String representation of Application */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -582,7 +582,7 @@ class ApplicationCategory {
   }
 
   /** Return String representation of ApplicationCategory */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -647,7 +647,7 @@ class ImageAsset {
   }
 
   /** Return String representation of ImageAsset */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -752,7 +752,7 @@ Possible values are:
   }
 
   /** Return String representation of Instance */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -808,7 +808,7 @@ class InstanceAndroidDetails {
   }
 
   /** Return String representation of InstanceAndroidDetails */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -891,7 +891,7 @@ class InstanceIosDetails {
   }
 
   /** Return String representation of InstanceIosDetails */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -938,7 +938,7 @@ class InstanceWebDetails {
   }
 
   /** Return String representation of InstanceWebDetails */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1015,7 +1015,7 @@ Possible values are:
   }
 
   /** Return String representation of Leaderboard */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1111,7 +1111,7 @@ Possible values are:
   }
 
   /** Return String representation of LeaderboardEntry */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1158,7 +1158,7 @@ class LeaderboardListResponse {
   }
 
   /** Return String representation of LeaderboardListResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1223,7 +1223,7 @@ class LeaderboardScoreRank {
   }
 
   /** Return String representation of LeaderboardScoreRank */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1297,7 +1297,7 @@ class LeaderboardScores {
   }
 
   /** Return String representation of LeaderboardScores */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1353,7 +1353,7 @@ class NetworkDiagnostics {
   }
 
   /** Return String representation of NetworkDiagnostics */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1445,7 +1445,7 @@ class PeerChannelDiagnostics {
   }
 
   /** Return String representation of PeerChannelDiagnostics */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1510,7 +1510,7 @@ class PeerSessionDiagnostics {
   }
 
   /** Return String representation of PeerSessionDiagnostics */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1566,7 +1566,7 @@ class Player {
   }
 
   /** Return String representation of Player */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1644,7 +1644,7 @@ Possible values are:
   }
 
   /** Return String representation of PlayerAchievement */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1691,7 +1691,7 @@ class PlayerAchievementListResponse {
   }
 
   /** Return String representation of PlayerAchievementListResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1787,7 +1787,7 @@ Possible values are:
   }
 
   /** Return String representation of PlayerLeaderboardScore */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1834,7 +1834,7 @@ class PlayerLeaderboardScoreListResponse {
   }
 
   /** Return String representation of PlayerLeaderboardScoreListResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1894,7 +1894,7 @@ Possible values are:
   }
 
   /** Return String representation of PlayerScore */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1932,7 +1932,7 @@ class PlayerScoreListResponse {
   }
 
   /** Return String representation of PlayerScoreListResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2001,7 +2001,7 @@ Possible values are:
   }
 
   /** Return String representation of PlayerScoreResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2039,7 +2039,7 @@ class PlayerScoreSubmissionList {
   }
 
   /** Return String representation of PlayerScoreSubmissionList */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2081,7 +2081,7 @@ Possible values are:
   }
 
   /** Return String representation of RevisionCheckResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2094,7 +2094,7 @@ class Room {
   /** Criteria for auto-matching players into this room. */
   RoomAutoMatchingCriteria autoMatchingCriteria;
 
-  /** Auto-matching status for this room. Not set if the room is not currently in the automatching status. */
+  /** Auto-matching status for this room. Not set if the room is not currently in the auto-matching queue. */
   RoomAutoMatchStatus autoMatchingStatus;
 
   /** Details about the room creation. */
@@ -2215,7 +2215,7 @@ Possible values are:
   }
 
   /** Return String representation of Room */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2225,7 +2225,7 @@ class RoomAutoMatchStatus {
   /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomAutoMatchStatus. */
   core.String kind;
 
-  /** An estimate for the amount of time that automatching is expected to take to complete. */
+  /** An estimate for the amount of time (in seconds) that auto-matching is expected to take to complete. */
   core.int waitEstimateSeconds;
 
   /** Create new RoomAutoMatchStatus from JSON data */
@@ -2253,7 +2253,7 @@ class RoomAutoMatchStatus {
   }
 
   /** Return String representation of RoomAutoMatchStatus */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2309,7 +2309,7 @@ class RoomAutoMatchingCriteria {
   }
 
   /** Return String representation of RoomAutoMatchingCriteria */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2347,7 +2347,7 @@ class RoomClientAddress {
   }
 
   /** Return String representation of RoomClientAddress */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2430,7 +2430,7 @@ class RoomCreateRequest {
   }
 
   /** Return String representation of RoomCreateRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2486,7 +2486,7 @@ class RoomJoinRequest {
   }
 
   /** Return String representation of RoomJoinRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2551,7 +2551,7 @@ class RoomLeaveDiagnostics {
   }
 
   /** Return String representation of RoomLeaveDiagnostics */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2606,7 +2606,7 @@ Possible values are:
   }
 
   /** Return String representation of RoomLeaveRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2653,7 +2653,7 @@ class RoomList {
   }
 
   /** Return String representation of RoomList */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2700,7 +2700,7 @@ class RoomModification {
   }
 
   /** Return String representation of RoomModification */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2790,7 +2790,7 @@ Possible values are:
   }
 
   /** Return String representation of RoomP2PStatus */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2828,7 +2828,7 @@ class RoomP2PStatuses {
   }
 
   /** Return String representation of RoomP2PStatuses */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -2942,7 +2942,7 @@ Possible values are:
   }
 
   /** Return String representation of RoomParticipant */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -3022,7 +3022,7 @@ Possible values are:
   }
 
   /** Return String representation of RoomStatus */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -3069,7 +3069,7 @@ class ScoreSubmission {
   }
 
   /** Return String representation of ScoreSubmission */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 

@@ -63,7 +63,7 @@ class AchievementsResource_ {
    * [stepsToIncrement] - The number of steps to increment.
    *   Minimum: 1
    *
-   * [requestId] - A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the increment is performed correctly across retries.
+   * [requestId] - A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled correctly across retries.
    *
    * [optParams] - Additional query parameters
    */
@@ -762,11 +762,12 @@ class ScoresResource_ {
       _client = client;
 
   /**
-   * Get high scores and optionally, ranks in leaderboards for the currently authenticated player. For a specific time span, leaderboardId can be set to ALL to retrieve data for all leaderboards in a given time span.
+   * Get high scores, and optionally ranks, in leaderboards for the currently authenticated player. For a specific time span, leaderboardId can be set to ALL to retrieve data for all leaderboards in a given time span.
+NOTE: You cannot ask for 'ALL' leaderboards and 'ALL' timeSpans in the same request; only one parameter may be set to 'ALL'.
    *
    * [playerId] - A player ID. A value of me may be used in place of the authenticated player's ID.
    *
-   * [leaderboardId] - The ID of the leaderboard.
+   * [leaderboardId] - The ID of the leaderboard. Can be set to 'ALL' to retrieve data for all leaderboards for this application.
    *
    * [timeSpan] - The time span for the scores and ranks you're requesting.
    *   Allowed values:
