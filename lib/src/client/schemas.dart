@@ -270,6 +270,53 @@ Possible values are:
 
 }
 
+/** This is a JSON template for an achievement set steps at least response. */
+class AchievementSetStepsAtLeastResponse {
+
+  /** The current steps recorded for this incremental achievement. */
+  core.int currentSteps;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#achievementSetStepsAtLeastResponse. */
+  core.String kind;
+
+  /** Whether the the current steps for the achievement has reached the number of steps required to unlock. */
+  core.bool newlyUnlocked;
+
+  /** Create new AchievementSetStepsAtLeastResponse from JSON data */
+  AchievementSetStepsAtLeastResponse.fromJson(core.Map json) {
+    if (json.containsKey("currentSteps")) {
+      currentSteps = json["currentSteps"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("newlyUnlocked")) {
+      newlyUnlocked = json["newlyUnlocked"];
+    }
+  }
+
+  /** Create JSON Object for AchievementSetStepsAtLeastResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (currentSteps != null) {
+      output["currentSteps"] = currentSteps;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (newlyUnlocked != null) {
+      output["newlyUnlocked"] = newlyUnlocked;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of AchievementSetStepsAtLeastResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
 /** This is a JSON template for an achievement unlock response */
 class AchievementUnlockResponse {
 
@@ -1037,6 +1084,9 @@ class LeaderboardEntry {
   /** The rank of this score for this leaderboard. */
   core.int scoreRank;
 
+  /** Additional information about the score. Values must contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
+  core.String scoreTag;
+
   /** The numerical value of this score. */
   core.int scoreValue;
 
@@ -1067,6 +1117,9 @@ Possible values are:
     if (json.containsKey("scoreRank")) {
       scoreRank = (json["scoreRank"] is core.String) ? core.int.parse(json["scoreRank"]) : json["scoreRank"];
     }
+    if (json.containsKey("scoreTag")) {
+      scoreTag = json["scoreTag"];
+    }
     if (json.containsKey("scoreValue")) {
       scoreValue = (json["scoreValue"] is core.String) ? core.int.parse(json["scoreValue"]) : json["scoreValue"];
     }
@@ -1096,6 +1149,9 @@ Possible values are:
     }
     if (scoreRank != null) {
       output["scoreRank"] = scoreRank;
+    }
+    if (scoreTag != null) {
+      output["scoreTag"] = scoreTag;
     }
     if (scoreValue != null) {
       output["scoreValue"] = scoreValue;
@@ -1710,6 +1766,9 @@ class PlayerLeaderboardScore {
   /** The formatted value of this score. */
   core.String scoreString;
 
+  /** Additional information about the score. Values must contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
+  core.String scoreTag;
+
   /** The numerical value of this score. */
   core.int scoreValue;
 
@@ -1740,6 +1799,9 @@ Possible values are:
     if (json.containsKey("scoreString")) {
       scoreString = json["scoreString"];
     }
+    if (json.containsKey("scoreTag")) {
+      scoreTag = json["scoreTag"];
+    }
     if (json.containsKey("scoreValue")) {
       scoreValue = (json["scoreValue"] is core.String) ? core.int.parse(json["scoreValue"]) : json["scoreValue"];
     }
@@ -1769,6 +1831,9 @@ Possible values are:
     }
     if (scoreString != null) {
       output["scoreString"] = scoreString;
+    }
+    if (scoreTag != null) {
+      output["scoreTag"] = scoreTag;
     }
     if (scoreValue != null) {
       output["scoreValue"] = scoreValue;
@@ -1850,6 +1915,9 @@ class PlayerScore {
   /** The numerical value for this player score. */
   core.int score;
 
+  /** Additional information about this score. Values will contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
+  core.String scoreTag;
+
   /** The time span for this player score.
 Possible values are:  
 - "ALL_TIME" - The score is an all-time score. 
@@ -1868,6 +1936,9 @@ Possible values are:
     if (json.containsKey("score")) {
       score = (json["score"] is core.String) ? core.int.parse(json["score"]) : json["score"];
     }
+    if (json.containsKey("scoreTag")) {
+      scoreTag = json["scoreTag"];
+    }
     if (json.containsKey("timeSpan")) {
       timeSpan = json["timeSpan"];
     }
@@ -1885,6 +1956,9 @@ Possible values are:
     }
     if (score != null) {
       output["score"] = score;
+    }
+    if (scoreTag != null) {
+      output["scoreTag"] = scoreTag;
     }
     if (timeSpan != null) {
       output["timeSpan"] = timeSpan;
@@ -1955,6 +2029,9 @@ Possible values are:
   /** The leaderboard ID that this score was submitted to. */
   core.String leaderboardId;
 
+  /** Additional information about this score. Values will contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
+  core.String scoreTag;
+
   /** The scores in time spans that have not been beaten. As an example, the submitted score may be better than the player's DAILY score, but not better than the player's scores for the WEEKLY or ALL_TIME time spans. */
   core.List<PlayerScore> unbeatenScores;
 
@@ -1971,6 +2048,9 @@ Possible values are:
     }
     if (json.containsKey("leaderboardId")) {
       leaderboardId = json["leaderboardId"];
+    }
+    if (json.containsKey("scoreTag")) {
+      scoreTag = json["scoreTag"];
     }
     if (json.containsKey("unbeatenScores")) {
       unbeatenScores = json["unbeatenScores"].map((unbeatenScoresItem) => new PlayerScore.fromJson(unbeatenScoresItem)).toList();
@@ -1992,6 +2072,9 @@ Possible values are:
     }
     if (leaderboardId != null) {
       output["leaderboardId"] = leaderboardId;
+    }
+    if (scoreTag != null) {
+      output["scoreTag"] = scoreTag;
     }
     if (unbeatenScores != null) {
       output["unbeatenScores"] = unbeatenScores.map((unbeatenScoresItem) => unbeatenScoresItem.toJson()).toList();
@@ -2046,6 +2129,9 @@ class PlayerScoreSubmissionList {
 /** This is a JSON template for the result of checking a revision. */
 class RevisionCheckResponse {
 
+  /** The version of the API this client revision should use when calling API methods. */
+  core.String apiVersion;
+
   /** Uniquely identifies the type of this resource. Value is always the fixed string games#revisionCheckResponse. */
   core.String kind;
 
@@ -2058,6 +2144,9 @@ Possible values are:
 
   /** Create new RevisionCheckResponse from JSON data */
   RevisionCheckResponse.fromJson(core.Map json) {
+    if (json.containsKey("apiVersion")) {
+      apiVersion = json["apiVersion"];
+    }
     if (json.containsKey("kind")) {
       kind = json["kind"];
     }
@@ -2070,6 +2159,9 @@ Possible values are:
   core.Map toJson() {
     var output = new core.Map();
 
+    if (apiVersion != null) {
+      output["apiVersion"] = apiVersion;
+    }
     if (kind != null) {
       output["kind"] = kind;
     }
@@ -3038,6 +3130,9 @@ class ScoreSubmission {
   /** The new score being submitted. */
   core.int score;
 
+  /** Additional information about this score. Values will contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
+  core.String scoreTag;
+
   /** Create new ScoreSubmission from JSON data */
   ScoreSubmission.fromJson(core.Map json) {
     if (json.containsKey("kind")) {
@@ -3048,6 +3143,9 @@ class ScoreSubmission {
     }
     if (json.containsKey("score")) {
       score = (json["score"] is core.String) ? core.int.parse(json["score"]) : json["score"];
+    }
+    if (json.containsKey("scoreTag")) {
+      scoreTag = json["scoreTag"];
     }
   }
 
@@ -3063,6 +3161,9 @@ class ScoreSubmission {
     }
     if (score != null) {
       output["score"] = score;
+    }
+    if (scoreTag != null) {
+      output["scoreTag"] = scoreTag;
     }
 
     return output;

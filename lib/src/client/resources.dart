@@ -185,6 +185,44 @@ class AchievementsResource_ {
   }
 
   /**
+   * Sets the steps for the currently authenticated player towards unlocking an achievement. If the steps parameter is less than the current number of steps that the player already gained for the achievement, the achievement is not modified.
+   *
+   * [achievementId] - The ID of the achievement used by this method.
+   *
+   * [steps] - The minimum value to set the steps to.
+   *   Minimum: 1
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<AchievementSetStepsAtLeastResponse> setStepsAtLeast(core.String achievementId, core.int steps, {core.Map optParams}) {
+    var url = "achievements/{achievementId}/setStepsAtLeast";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (achievementId == null) paramErrors.add("achievementId is required");
+    if (achievementId != null) urlParams["achievementId"] = achievementId;
+    if (steps == null) paramErrors.add("steps is required");
+    if (steps != null) queryParams["steps"] = steps;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "POST", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new AchievementSetStepsAtLeastResponse.fromJson(data));
+  }
+
+  /**
    * Unlocks this achievement for the currently authenticated player.
    *
    * [achievementId] - The ID of the achievement used by this method.
@@ -977,9 +1015,11 @@ NOTE: You cannot ask for 'ALL' leaderboards and 'ALL' timeSpans in the same requ
    *
    * [language] - The preferred language to use for strings returned by this method.
    *
+   * [scoreTag] - Additional information about the score you're submitting. Values must contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986.
+   *
    * [optParams] - Additional query parameters
    */
-  async.Future<PlayerScoreResponse> submit(core.String leaderboardId, core.int score, {core.String language, core.Map optParams}) {
+  async.Future<PlayerScoreResponse> submit(core.String leaderboardId, core.int score, {core.String language, core.String scoreTag, core.Map optParams}) {
     var url = "leaderboards/{leaderboardId}/scores";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
@@ -990,6 +1030,7 @@ NOTE: You cannot ask for 'ALL' leaderboards and 'ALL' timeSpans in the same requ
     if (leaderboardId != null) urlParams["leaderboardId"] = leaderboardId;
     if (score == null) paramErrors.add("score is required");
     if (score != null) queryParams["score"] = score;
+    if (scoreTag != null) queryParams["scoreTag"] = scoreTag;
     if (optParams != null) {
       optParams.forEach((key, value) {
         if (value != null && queryParams[key] == null) {
