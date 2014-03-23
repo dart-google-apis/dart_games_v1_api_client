@@ -355,6 +355,230 @@ class AchievementUnlockResponse {
 
 }
 
+/** This is a JSON template for a list of achievement update requests. */
+class AchievementUpdateMultipleRequest {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#achievementUpdateMultipleRequest. */
+  core.String kind;
+
+  /** The individual achievement update requests. */
+  core.List<AchievementUpdateRequest> updates;
+
+  /** Create new AchievementUpdateMultipleRequest from JSON data */
+  AchievementUpdateMultipleRequest.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("updates")) {
+      updates = json["updates"].map((updatesItem) => new AchievementUpdateRequest.fromJson(updatesItem)).toList();
+    }
+  }
+
+  /** Create JSON Object for AchievementUpdateMultipleRequest */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (updates != null) {
+      output["updates"] = updates.map((updatesItem) => updatesItem.toJson()).toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of AchievementUpdateMultipleRequest */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an achievement unlock response. */
+class AchievementUpdateMultipleResponse {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#achievementUpdateListResponse. */
+  core.String kind;
+
+  /** The updated state of the achievements. */
+  core.List<AchievementUpdateResponse> updatedAchievements;
+
+  /** Create new AchievementUpdateMultipleResponse from JSON data */
+  AchievementUpdateMultipleResponse.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("updatedAchievements")) {
+      updatedAchievements = json["updatedAchievements"].map((updatedAchievementsItem) => new AchievementUpdateResponse.fromJson(updatedAchievementsItem)).toList();
+    }
+  }
+
+  /** Create JSON Object for AchievementUpdateMultipleResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (updatedAchievements != null) {
+      output["updatedAchievements"] = updatedAchievements.map((updatedAchievementsItem) => updatedAchievementsItem.toJson()).toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of AchievementUpdateMultipleResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a request to update an achievement. */
+class AchievementUpdateRequest {
+
+  /** The achievement this update is being applied to. */
+  core.String achievementId;
+
+  /** The payload if an update of type INCREMENT was requested for the achievement. */
+  GamesAchievementIncrement incrementPayload;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#achievementUpdateRequest. */
+  core.String kind;
+
+  /** The payload if an update of type SET_STEPS_AT_LEAST was requested for the achievement. */
+  GamesAchievementSetStepsAtLeast setStepsAtLeastPayload;
+
+  /** The type of update being applied.
+Possible values are:  
+- "REVEAL" - Achievement is revealed. 
+- "UNLOCK" - Achievement is unlocked. 
+- "INCREMENT" - Achievement is incremented. 
+- "SET_STEPS_AT_LEAST" - Achievement progress is set to at least the passed value. */
+  core.String updateType;
+
+  /** Create new AchievementUpdateRequest from JSON data */
+  AchievementUpdateRequest.fromJson(core.Map json) {
+    if (json.containsKey("achievementId")) {
+      achievementId = json["achievementId"];
+    }
+    if (json.containsKey("incrementPayload")) {
+      incrementPayload = new GamesAchievementIncrement.fromJson(json["incrementPayload"]);
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("setStepsAtLeastPayload")) {
+      setStepsAtLeastPayload = new GamesAchievementSetStepsAtLeast.fromJson(json["setStepsAtLeastPayload"]);
+    }
+    if (json.containsKey("updateType")) {
+      updateType = json["updateType"];
+    }
+  }
+
+  /** Create JSON Object for AchievementUpdateRequest */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (achievementId != null) {
+      output["achievementId"] = achievementId;
+    }
+    if (incrementPayload != null) {
+      output["incrementPayload"] = incrementPayload.toJson();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (setStepsAtLeastPayload != null) {
+      output["setStepsAtLeastPayload"] = setStepsAtLeastPayload.toJson();
+    }
+    if (updateType != null) {
+      output["updateType"] = updateType;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of AchievementUpdateRequest */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an achievement update response. */
+class AchievementUpdateResponse {
+
+  /** The achievement this update is was applied to. */
+  core.String achievementId;
+
+  /** The current state of the achievement.
+Possible values are:  
+- "HIDDEN" - Achievement is hidden. 
+- "REVEALED" - Achievement is revealed. 
+- "UNLOCKED" - Achievement is unlocked. */
+  core.String currentState;
+
+  /** The current steps recorded for this achievement if it is incremental. */
+  core.int currentSteps;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#achievementUpdateResponse. */
+  core.String kind;
+
+  /** Whether this achievement was newly unlocked (that is, whether the unlock request for the achievement was the first for the player). */
+  core.bool newlyUnlocked;
+
+  /** Whether the requested updates actually affected the achievement. */
+  core.bool updateOccurred;
+
+  /** Create new AchievementUpdateResponse from JSON data */
+  AchievementUpdateResponse.fromJson(core.Map json) {
+    if (json.containsKey("achievementId")) {
+      achievementId = json["achievementId"];
+    }
+    if (json.containsKey("currentState")) {
+      currentState = json["currentState"];
+    }
+    if (json.containsKey("currentSteps")) {
+      currentSteps = json["currentSteps"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("newlyUnlocked")) {
+      newlyUnlocked = json["newlyUnlocked"];
+    }
+    if (json.containsKey("updateOccurred")) {
+      updateOccurred = json["updateOccurred"];
+    }
+  }
+
+  /** Create JSON Object for AchievementUpdateResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (achievementId != null) {
+      output["achievementId"] = achievementId;
+    }
+    if (currentState != null) {
+      output["currentState"] = currentState;
+    }
+    if (currentSteps != null) {
+      output["currentSteps"] = currentSteps;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (newlyUnlocked != null) {
+      output["newlyUnlocked"] = newlyUnlocked;
+    }
+    if (updateOccurred != null) {
+      output["updateOccurred"] = updateOccurred;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of AchievementUpdateResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
 /** This is a JSON template for aggregate stats. */
 class AggregateStats {
 
@@ -629,6 +853,91 @@ class ApplicationCategory {
   }
 
   /** Return String representation of ApplicationCategory */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for the payload to request to increment an achievement. */
+class GamesAchievementIncrement {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#GamesAchievementIncrement. */
+  core.String kind;
+
+  /** The requestId associated with an increment to an achievement. */
+  core.int requestId;
+
+  /** The number of steps to be incremented. */
+  core.int steps;
+
+  /** Create new GamesAchievementIncrement from JSON data */
+  GamesAchievementIncrement.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("requestId")) {
+      requestId = (json["requestId"] is core.String) ? core.int.parse(json["requestId"]) : json["requestId"];
+    }
+    if (json.containsKey("steps")) {
+      steps = json["steps"];
+    }
+  }
+
+  /** Create JSON Object for GamesAchievementIncrement */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (requestId != null) {
+      output["requestId"] = requestId;
+    }
+    if (steps != null) {
+      output["steps"] = steps;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of GamesAchievementIncrement */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for the payload to request to increment an achievement. */
+class GamesAchievementSetStepsAtLeast {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#GamesAchievementSetStepsAtLeast. */
+  core.String kind;
+
+  /** The minimum number of steps for the achievement to be set to. */
+  core.int steps;
+
+  /** Create new GamesAchievementSetStepsAtLeast from JSON data */
+  GamesAchievementSetStepsAtLeast.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("steps")) {
+      steps = json["steps"];
+    }
+  }
+
+  /** Create JSON Object for GamesAchievementSetStepsAtLeast */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (steps != null) {
+      output["steps"] = steps;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of GamesAchievementSetStepsAtLeast */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -1366,6 +1675,9 @@ class NetworkDiagnostics {
   /** The Android network type. */
   core.int androidNetworkType;
 
+  /** iOS network type. */
+  core.int iosNetworkType;
+
   /** Uniquely identifies the type of this resource. Value is always the fixed string games#networkDiagnostics. */
   core.String kind;
 
@@ -1379,6 +1691,9 @@ class NetworkDiagnostics {
     }
     if (json.containsKey("androidNetworkType")) {
       androidNetworkType = json["androidNetworkType"];
+    }
+    if (json.containsKey("iosNetworkType")) {
+      iosNetworkType = json["iosNetworkType"];
     }
     if (json.containsKey("kind")) {
       kind = json["kind"];
@@ -1398,6 +1713,9 @@ class NetworkDiagnostics {
     if (androidNetworkType != null) {
       output["androidNetworkType"] = androidNetworkType;
     }
+    if (iosNetworkType != null) {
+      output["iosNetworkType"] = iosNetworkType;
+    }
     if (kind != null) {
       output["kind"] = kind;
     }
@@ -1409,6 +1727,69 @@ class NetworkDiagnostics {
   }
 
   /** Return String representation of NetworkDiagnostics */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a result for a match participant. */
+class ParticipantResult {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#participantResult. */
+  core.String kind;
+
+  /** The ID of the participant. */
+  core.String participantId;
+
+  /** The placement or ranking of the participant in the match results; a number from one to the number of participants in the match. Multiple participants may have the same placing value in case of a type. */
+  core.int placing;
+
+  /** The result of the participant for this match.
+Possible values are:  
+- "MATCH_RESULT_WIN" - The participant won the match. 
+- "MATCH_RESULT_LOSS" - The participant lost the match. 
+- "MATCH_RESULT_TIE" - The participant tied the match. 
+- "MATCH_RESULT_NONE" - There was no winner for the match (nobody wins or loses this kind of game.) 
+- "MATCH_RESULT_DISCONNECT" - The participant disconnected / left during the match. 
+- "MATCH_RESULT_DISAGREED" - Different clients reported different results for this participant. */
+  core.String result;
+
+  /** Create new ParticipantResult from JSON data */
+  ParticipantResult.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("participantId")) {
+      participantId = json["participantId"];
+    }
+    if (json.containsKey("placing")) {
+      placing = json["placing"];
+    }
+    if (json.containsKey("result")) {
+      result = json["result"];
+    }
+  }
+
+  /** Create JSON Object for ParticipantResult */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (participantId != null) {
+      output["participantId"] = participantId;
+    }
+    if (placing != null) {
+      output["placing"] = placing;
+    }
+    if (result != null) {
+      output["result"] = result;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of ParticipantResult */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -1570,6 +1951,53 @@ class PeerSessionDiagnostics {
 
 }
 
+/** This is a JSON template for 3P metadata about a player playing a game. */
+class Played {
+
+  /** True if the player was auto-matched with the currently authenticated user. */
+  core.bool autoMatched;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#played. */
+  core.String kind;
+
+  /** The last time the player played the game in milliseconds since the epoch in UTC. */
+  core.int timeMillis;
+
+  /** Create new Played from JSON data */
+  Played.fromJson(core.Map json) {
+    if (json.containsKey("autoMatched")) {
+      autoMatched = json["autoMatched"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("timeMillis")) {
+      timeMillis = (json["timeMillis"] is core.String) ? core.int.parse(json["timeMillis"]) : json["timeMillis"];
+    }
+  }
+
+  /** Create JSON Object for Played */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (autoMatched != null) {
+      output["autoMatched"] = autoMatched;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (timeMillis != null) {
+      output["timeMillis"] = timeMillis;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of Played */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
 /** This is a JSON template for a Player resource. */
 class Player {
 
@@ -1581,6 +2009,12 @@ class Player {
 
   /** Uniquely identifies the type of this resource. Value is always the fixed string games#player. */
   core.String kind;
+
+  /** Details about the last time this player played a multiplayer game with the currently authenticated player. Populated for PLAYED_WITH player collection members. */
+  Played lastPlayedWith;
+
+  /** An object representation of the individual components of the player's name. */
+  PlayerName name;
 
   /** The ID of the player. */
   core.String playerId;
@@ -1595,6 +2029,12 @@ class Player {
     }
     if (json.containsKey("kind")) {
       kind = json["kind"];
+    }
+    if (json.containsKey("lastPlayedWith")) {
+      lastPlayedWith = new Played.fromJson(json["lastPlayedWith"]);
+    }
+    if (json.containsKey("name")) {
+      name = new PlayerName.fromJson(json["name"]);
     }
     if (json.containsKey("playerId")) {
       playerId = json["playerId"];
@@ -1614,6 +2054,12 @@ class Player {
     if (kind != null) {
       output["kind"] = kind;
     }
+    if (lastPlayedWith != null) {
+      output["lastPlayedWith"] = lastPlayedWith.toJson();
+    }
+    if (name != null) {
+      output["name"] = name.toJson();
+    }
     if (playerId != null) {
       output["playerId"] = playerId;
     }
@@ -1622,6 +2068,44 @@ class Player {
   }
 
   /** Return String representation of Player */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** An object representation of the individual components of the player's name. */
+class PlayerName {
+
+  /** The family name (last name) of this player. */
+  core.String familyName;
+
+  /** The given name (first name) of this player. */
+  core.String givenName;
+
+  /** Create new PlayerName from JSON data */
+  PlayerName.fromJson(core.Map json) {
+    if (json.containsKey("familyName")) {
+      familyName = json["familyName"];
+    }
+    if (json.containsKey("givenName")) {
+      givenName = json["givenName"];
+    }
+  }
+
+  /** Create JSON Object for PlayerName */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (familyName != null) {
+      output["familyName"] = familyName;
+    }
+    if (givenName != null) {
+      output["givenName"] = givenName;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of PlayerName */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -1868,6 +2352,9 @@ class PlayerLeaderboardScoreListResponse {
   /** The pagination token for the next page of results. */
   core.String nextPageToken;
 
+  /** The Player resources for the owner of this score. */
+  Player player;
+
   /** Create new PlayerLeaderboardScoreListResponse from JSON data */
   PlayerLeaderboardScoreListResponse.fromJson(core.Map json) {
     if (json.containsKey("items")) {
@@ -1878,6 +2365,9 @@ class PlayerLeaderboardScoreListResponse {
     }
     if (json.containsKey("nextPageToken")) {
       nextPageToken = json["nextPageToken"];
+    }
+    if (json.containsKey("player")) {
+      player = new Player.fromJson(json["player"]);
     }
   }
 
@@ -1894,11 +2384,61 @@ class PlayerLeaderboardScoreListResponse {
     if (nextPageToken != null) {
       output["nextPageToken"] = nextPageToken;
     }
+    if (player != null) {
+      output["player"] = player.toJson();
+    }
 
     return output;
   }
 
   /** Return String representation of PlayerLeaderboardScoreListResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a third party player list response. */
+class PlayerListResponse {
+
+  /** The players. */
+  core.List<Player> items;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerListResponse. */
+  core.String kind;
+
+  /** Token corresponding to the next page of results. */
+  core.String nextPageToken;
+
+  /** Create new PlayerListResponse from JSON data */
+  PlayerListResponse.fromJson(core.Map json) {
+    if (json.containsKey("items")) {
+      items = json["items"].map((itemsItem) => new Player.fromJson(itemsItem)).toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for PlayerListResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (items != null) {
+      output["items"] = items.map((itemsItem) => itemsItem.toJson()).toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of PlayerListResponse */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -2126,6 +2666,139 @@ class PlayerScoreSubmissionList {
 
 }
 
+/** This is a JSON template for a push token resource. */
+class PushToken {
+
+  /** The revision of the client SDK used by your application, in the same format that's used by revisions.check. Used to send backward compatible messages. Format: [PLATFORM_TYPE]:[VERSION_NUMBER]. Possible values of PLATFORM_TYPE are:  
+- IOS - Push token is for iOS */
+  core.String clientRevision;
+
+  /** Unique identifier for this push token. */
+  PushTokenId id;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#pushToken. */
+  core.String kind;
+
+  /** The preferred language for notifications that are sent using this token. */
+  core.String language;
+
+  /** Create new PushToken from JSON data */
+  PushToken.fromJson(core.Map json) {
+    if (json.containsKey("clientRevision")) {
+      clientRevision = json["clientRevision"];
+    }
+    if (json.containsKey("id")) {
+      id = new PushTokenId.fromJson(json["id"]);
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("language")) {
+      language = json["language"];
+    }
+  }
+
+  /** Create JSON Object for PushToken */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (clientRevision != null) {
+      output["clientRevision"] = clientRevision;
+    }
+    if (id != null) {
+      output["id"] = id.toJson();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (language != null) {
+      output["language"] = language;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of PushToken */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a push token ID resource. */
+class PushTokenId {
+
+  /** A push token ID for iOS devices. */
+  PushTokenIdIos ios;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#pushTokenId. */
+  core.String kind;
+
+  /** Create new PushTokenId from JSON data */
+  PushTokenId.fromJson(core.Map json) {
+    if (json.containsKey("ios")) {
+      ios = new PushTokenIdIos.fromJson(json["ios"]);
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+  }
+
+  /** Create JSON Object for PushTokenId */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (ios != null) {
+      output["ios"] = ios.toJson();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of PushTokenId */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** A push token ID for iOS devices. */
+class PushTokenIdIos {
+
+  /** Device token supplied by an iOS system call to register for remote notifications. Encode this field as web-safe base64. */
+  core.String apns_device_token;
+
+  /** Use SANDBOX during development for the APNS test server at gateway.sandbox.push.apple.com or PRODUCTION for the production server at gateway.push.apple.com. */
+  core.String apns_environment;
+
+  /** Create new PushTokenIdIos from JSON data */
+  PushTokenIdIos.fromJson(core.Map json) {
+    if (json.containsKey("apns_device_token")) {
+      apns_device_token = json["apns_device_token"];
+    }
+    if (json.containsKey("apns_environment")) {
+      apns_environment = json["apns_environment"];
+    }
+  }
+
+  /** Create JSON Object for PushTokenIdIos */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (apns_device_token != null) {
+      output["apns_device_token"] = apns_device_token;
+    }
+    if (apns_environment != null) {
+      output["apns_environment"] = apns_environment;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of PushTokenIdIos */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
 /** This is a JSON template for the result of checking a revision. */
 class RevisionCheckResponse {
 
@@ -2195,6 +2868,9 @@ class Room {
   /** This short description is generated by our servers and worded relative to the player requesting the room. It is intended to be displayed when the room is shown in a list (that is, an invitation to a room.) */
   core.String description;
 
+  /** The ID of the participant that invited the user to the room. Not set if the user was not invited to the room. */
+  core.String inviterId;
+
   /** Uniquely identifies the type of this resource. Value is always the fixed string games#room. */
   core.String kind;
 
@@ -2239,6 +2915,9 @@ Possible values are:
     if (json.containsKey("description")) {
       description = json["description"];
     }
+    if (json.containsKey("inviterId")) {
+      inviterId = json["inviterId"];
+    }
     if (json.containsKey("kind")) {
       kind = json["kind"];
     }
@@ -2280,6 +2959,9 @@ Possible values are:
     }
     if (description != null) {
       output["description"] = description;
+    }
+    if (inviterId != null) {
+      output["inviterId"] = inviterId;
     }
     if (kind != null) {
       output["kind"] = kind;
@@ -2464,6 +3146,9 @@ class RoomCreateRequest {
   /** Network diagnostics for the client creating the room. */
   NetworkDiagnostics networkDiagnostics;
 
+  /** A randomly generated numeric ID. This number is used at the server to ensure that the request is handled correctly across retries. */
+  core.int requestId;
+
   /** The variant / mode of the application to be played. This can be any integer value, or left blank. You should use a small number of variants to keep the auto-matching pool as large as possible. */
   core.int variant;
 
@@ -2486,6 +3171,9 @@ class RoomCreateRequest {
     }
     if (json.containsKey("networkDiagnostics")) {
       networkDiagnostics = new NetworkDiagnostics.fromJson(json["networkDiagnostics"]);
+    }
+    if (json.containsKey("requestId")) {
+      requestId = (json["requestId"] is core.String) ? core.int.parse(json["requestId"]) : json["requestId"];
     }
     if (json.containsKey("variant")) {
       variant = json["variant"];
@@ -2513,6 +3201,9 @@ class RoomCreateRequest {
     }
     if (networkDiagnostics != null) {
       output["networkDiagnostics"] = networkDiagnostics.toJson();
+    }
+    if (requestId != null) {
+      output["requestId"] = requestId;
     }
     if (variant != null) {
       output["variant"] = variant;
@@ -2591,6 +3282,9 @@ class RoomLeaveDiagnostics {
   /** Android network type. http://developer.android.com/reference/android/net/NetworkInfo.html#getType() */
   core.int androidNetworkType;
 
+  /** iOS network type. */
+  core.int iosNetworkType;
+
   /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomLeaveDiagnostics. */
   core.String kind;
 
@@ -2607,6 +3301,9 @@ class RoomLeaveDiagnostics {
     }
     if (json.containsKey("androidNetworkType")) {
       androidNetworkType = json["androidNetworkType"];
+    }
+    if (json.containsKey("iosNetworkType")) {
+      iosNetworkType = json["iosNetworkType"];
     }
     if (json.containsKey("kind")) {
       kind = json["kind"];
@@ -2628,6 +3325,9 @@ class RoomLeaveDiagnostics {
     }
     if (androidNetworkType != null) {
       output["androidNetworkType"] = androidNetworkType;
+    }
+    if (iosNetworkType != null) {
+      output["iosNetworkType"] = iosNetworkType;
     }
     if (kind != null) {
       output["kind"] = kind;
@@ -2927,7 +3627,10 @@ class RoomP2PStatuses {
 /** This is a JSON template for a participant in a room. */
 class RoomParticipant {
 
-  /** Information about a player that has been auto-matched against the requesting player. (Either player or autoMatchedPlayer will be set.) */
+  /** True if this participant was auto-matched with the requesting player. */
+  core.bool autoMatched;
+
+  /** Information about a player that has been anonymously auto-matched against the requesting player. (Either player or autoMatchedPlayer will be set.) */
   AnonymousPlayer autoMatchedPlayer;
 
   /** The capabilities which can be used when communicating with this participant. */
@@ -2956,7 +3659,7 @@ Possible values are:
 - "PRESENCE_FAILURE" - The client's XMPP connection ended abruptly. */
   core.String leaveReason;
 
-  /** Information about the player. Not populated if this player was auto-matched against the requesting player. (Either player or autoMatchedPlayer will be set.) */
+  /** Information about the player. Not populated if this player was anonymously auto-matched against the requesting player. (Either player or autoMatchedPlayer will be set.) */
   Player player;
 
   /** The status of the participant with respect to the room.
@@ -2969,6 +3672,9 @@ Possible values are:
 
   /** Create new RoomParticipant from JSON data */
   RoomParticipant.fromJson(core.Map json) {
+    if (json.containsKey("autoMatched")) {
+      autoMatched = json["autoMatched"];
+    }
     if (json.containsKey("autoMatchedPlayer")) {
       autoMatchedPlayer = new AnonymousPlayer.fromJson(json["autoMatchedPlayer"]);
     }
@@ -3002,6 +3708,9 @@ Possible values are:
   core.Map toJson() {
     var output = new core.Map();
 
+    if (autoMatched != null) {
+      output["autoMatched"] = autoMatched;
+    }
     if (autoMatchedPlayer != null) {
       output["autoMatchedPlayer"] = autoMatchedPlayer.toJson();
     }
@@ -3170,6 +3879,824 @@ class ScoreSubmission {
   }
 
   /** Return String representation of ScoreSubmission */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an turn-based auto-match criteria object. */
+class TurnBasedAutoMatchingCriteria {
+
+  /** A bitmask indicating when auto-matches are valid. When ANDed with other exclusive bitmasks, the result must be zero. Can be used to support exclusive roles within a game. */
+  core.int exclusiveBitmask;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedAutoMatchingCriteria. */
+  core.String kind;
+
+  /** The maximum number of players that should be added to the match by auto-matching. */
+  core.int maxAutoMatchingPlayers;
+
+  /** The minimum number of players that should be added to the match by auto-matching. */
+  core.int minAutoMatchingPlayers;
+
+  /** Create new TurnBasedAutoMatchingCriteria from JSON data */
+  TurnBasedAutoMatchingCriteria.fromJson(core.Map json) {
+    if (json.containsKey("exclusiveBitmask")) {
+      exclusiveBitmask = (json["exclusiveBitmask"] is core.String) ? core.int.parse(json["exclusiveBitmask"]) : json["exclusiveBitmask"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("maxAutoMatchingPlayers")) {
+      maxAutoMatchingPlayers = json["maxAutoMatchingPlayers"];
+    }
+    if (json.containsKey("minAutoMatchingPlayers")) {
+      minAutoMatchingPlayers = json["minAutoMatchingPlayers"];
+    }
+  }
+
+  /** Create JSON Object for TurnBasedAutoMatchingCriteria */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (exclusiveBitmask != null) {
+      output["exclusiveBitmask"] = exclusiveBitmask;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (maxAutoMatchingPlayers != null) {
+      output["maxAutoMatchingPlayers"] = maxAutoMatchingPlayers;
+    }
+    if (minAutoMatchingPlayers != null) {
+      output["minAutoMatchingPlayers"] = minAutoMatchingPlayers;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedAutoMatchingCriteria */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a turn-based match resource object. */
+class TurnBasedMatch {
+
+  /** The ID of the application being played. */
+  core.String applicationId;
+
+  /** Criteria for auto-matching players into this match. */
+  TurnBasedAutoMatchingCriteria autoMatchingCriteria;
+
+  /** Details about the match creation. */
+  TurnBasedMatchModification creationDetails;
+
+  /** The data / game state for this match. */
+  TurnBasedMatchData data;
+
+  /** This short description is generated by our servers based on turn state and is localized and worded relative to the player requesting the match. It is intended to be displayed when the match is shown in a list. */
+  core.String description;
+
+  /** The ID of the participant that invited the user to the match. Not set if the user was not invited to the match. */
+  core.String inviterId;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatch. */
+  core.String kind;
+
+  /** Details about the last update to the match. */
+  TurnBasedMatchModification lastUpdateDetails;
+
+  /** Globally unique ID for a turn-based match. */
+  core.String matchId;
+
+  /** The number of the match in a chain of rematches. Will be set to 1 for the first match and incremented by 1 for each rematch. */
+  core.int matchNumber;
+
+  /** The version of this match: an increasing counter, used to avoid out-of-date updates to the match. */
+  core.int matchVersion;
+
+  /** The participants involved in the match, along with their statuses. Includes participants who have left or declined invitations. */
+  core.List<TurnBasedMatchParticipant> participants;
+
+  /** The ID of the participant that is taking a turn. */
+  core.String pendingParticipantId;
+
+  /** The data / game state for the previous match; set for the first turn of rematches only. */
+  TurnBasedMatchData previousMatchData;
+
+  /** The ID of a rematch of this match. Only set for completed matches that have been rematched. */
+  core.String rematchId;
+
+  /** The results reported for this match. */
+  core.List<ParticipantResult> results;
+
+  /** The status of the match.
+Possible values are:  
+- "MATCH_AUTO_MATCHING" - One or more slots need to be filled by auto-matching; the match cannot be established until they are filled. 
+- "MATCH_ACTIVE" - The match has started. 
+- "MATCH_COMPLETE" - The match has finished. 
+- "MATCH_CANCELED" - The match was canceled. 
+- "MATCH_EXPIRED" - The match expired due to inactivity. 
+- "MATCH_DELETED" - The match should no longer be shown on the client. Returned only for tombstones for matches when sync is called. */
+  core.String status;
+
+  /** The status of the current user in the match. Derived from the match type, match status, the user's participant status, and the pending participant for the match.
+Possible values are:  
+- "USER_INVITED" - The user has been invited to join the match and has not responded yet. 
+- "USER_AWAITING_TURN" - The user is waiting for their turn. 
+- "USER_TURN" - The user has an action to take in the match. 
+- "USER_MATCH_COMPLETED" - The match has ended (it is completed, canceled, or expired.) */
+  core.String userMatchStatus;
+
+  /** The variant / mode of the application being played; can be any integer value, or left blank. */
+  core.int variant;
+
+  /** The ID of another participant in the match that can be used when describing the participants the user is playing with. */
+  core.String withParticipantId;
+
+  /** Create new TurnBasedMatch from JSON data */
+  TurnBasedMatch.fromJson(core.Map json) {
+    if (json.containsKey("applicationId")) {
+      applicationId = json["applicationId"];
+    }
+    if (json.containsKey("autoMatchingCriteria")) {
+      autoMatchingCriteria = new TurnBasedAutoMatchingCriteria.fromJson(json["autoMatchingCriteria"]);
+    }
+    if (json.containsKey("creationDetails")) {
+      creationDetails = new TurnBasedMatchModification.fromJson(json["creationDetails"]);
+    }
+    if (json.containsKey("data")) {
+      data = new TurnBasedMatchData.fromJson(json["data"]);
+    }
+    if (json.containsKey("description")) {
+      description = json["description"];
+    }
+    if (json.containsKey("inviterId")) {
+      inviterId = json["inviterId"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("lastUpdateDetails")) {
+      lastUpdateDetails = new TurnBasedMatchModification.fromJson(json["lastUpdateDetails"]);
+    }
+    if (json.containsKey("matchId")) {
+      matchId = json["matchId"];
+    }
+    if (json.containsKey("matchNumber")) {
+      matchNumber = json["matchNumber"];
+    }
+    if (json.containsKey("matchVersion")) {
+      matchVersion = json["matchVersion"];
+    }
+    if (json.containsKey("participants")) {
+      participants = json["participants"].map((participantsItem) => new TurnBasedMatchParticipant.fromJson(participantsItem)).toList();
+    }
+    if (json.containsKey("pendingParticipantId")) {
+      pendingParticipantId = json["pendingParticipantId"];
+    }
+    if (json.containsKey("previousMatchData")) {
+      previousMatchData = new TurnBasedMatchData.fromJson(json["previousMatchData"]);
+    }
+    if (json.containsKey("rematchId")) {
+      rematchId = json["rematchId"];
+    }
+    if (json.containsKey("results")) {
+      results = json["results"].map((resultsItem) => new ParticipantResult.fromJson(resultsItem)).toList();
+    }
+    if (json.containsKey("status")) {
+      status = json["status"];
+    }
+    if (json.containsKey("userMatchStatus")) {
+      userMatchStatus = json["userMatchStatus"];
+    }
+    if (json.containsKey("variant")) {
+      variant = json["variant"];
+    }
+    if (json.containsKey("withParticipantId")) {
+      withParticipantId = json["withParticipantId"];
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatch */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (applicationId != null) {
+      output["applicationId"] = applicationId;
+    }
+    if (autoMatchingCriteria != null) {
+      output["autoMatchingCriteria"] = autoMatchingCriteria.toJson();
+    }
+    if (creationDetails != null) {
+      output["creationDetails"] = creationDetails.toJson();
+    }
+    if (data != null) {
+      output["data"] = data.toJson();
+    }
+    if (description != null) {
+      output["description"] = description;
+    }
+    if (inviterId != null) {
+      output["inviterId"] = inviterId;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (lastUpdateDetails != null) {
+      output["lastUpdateDetails"] = lastUpdateDetails.toJson();
+    }
+    if (matchId != null) {
+      output["matchId"] = matchId;
+    }
+    if (matchNumber != null) {
+      output["matchNumber"] = matchNumber;
+    }
+    if (matchVersion != null) {
+      output["matchVersion"] = matchVersion;
+    }
+    if (participants != null) {
+      output["participants"] = participants.map((participantsItem) => participantsItem.toJson()).toList();
+    }
+    if (pendingParticipantId != null) {
+      output["pendingParticipantId"] = pendingParticipantId;
+    }
+    if (previousMatchData != null) {
+      output["previousMatchData"] = previousMatchData.toJson();
+    }
+    if (rematchId != null) {
+      output["rematchId"] = rematchId;
+    }
+    if (results != null) {
+      output["results"] = results.map((resultsItem) => resultsItem.toJson()).toList();
+    }
+    if (status != null) {
+      output["status"] = status;
+    }
+    if (userMatchStatus != null) {
+      output["userMatchStatus"] = userMatchStatus;
+    }
+    if (variant != null) {
+      output["variant"] = variant;
+    }
+    if (withParticipantId != null) {
+      output["withParticipantId"] = withParticipantId;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatch */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a turn-based match creation request. */
+class TurnBasedMatchCreateRequest {
+
+  /** Criteria for auto-matching players into this match. */
+  TurnBasedAutoMatchingCriteria autoMatchingCriteria;
+
+  /** The player ids to invite to the match. */
+  core.List<core.String> invitedPlayerIds;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchCreateRequest. */
+  core.String kind;
+
+  /** A randomly generated numeric ID. This number is used at the server to ensure that the request is handled correctly across retries. */
+  core.int requestId;
+
+  /** The variant / mode of the application to be played. This can be any integer value, or left blank. You should use a small number of variants to keep the auto-matching pool as large as possible. */
+  core.int variant;
+
+  /** Create new TurnBasedMatchCreateRequest from JSON data */
+  TurnBasedMatchCreateRequest.fromJson(core.Map json) {
+    if (json.containsKey("autoMatchingCriteria")) {
+      autoMatchingCriteria = new TurnBasedAutoMatchingCriteria.fromJson(json["autoMatchingCriteria"]);
+    }
+    if (json.containsKey("invitedPlayerIds")) {
+      invitedPlayerIds = json["invitedPlayerIds"].toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("requestId")) {
+      requestId = (json["requestId"] is core.String) ? core.int.parse(json["requestId"]) : json["requestId"];
+    }
+    if (json.containsKey("variant")) {
+      variant = json["variant"];
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchCreateRequest */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (autoMatchingCriteria != null) {
+      output["autoMatchingCriteria"] = autoMatchingCriteria.toJson();
+    }
+    if (invitedPlayerIds != null) {
+      output["invitedPlayerIds"] = invitedPlayerIds.toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (requestId != null) {
+      output["requestId"] = requestId;
+    }
+    if (variant != null) {
+      output["variant"] = variant;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchCreateRequest */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a turn-based match data object. */
+class TurnBasedMatchData {
+
+  /** The byte representation of the data (limited to 128 kB), as a Base64-encoded string with the URL_SAFE encoding option. */
+  core.String data;
+
+  /** True if this match has data available but it wasn't returned in a list response; fetching the match individually will retrieve this data. */
+  core.bool dataAvailable;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchData. */
+  core.String kind;
+
+  /** Create new TurnBasedMatchData from JSON data */
+  TurnBasedMatchData.fromJson(core.Map json) {
+    if (json.containsKey("data")) {
+      data = json["data"];
+    }
+    if (json.containsKey("dataAvailable")) {
+      dataAvailable = json["dataAvailable"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchData */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (data != null) {
+      output["data"] = data;
+    }
+    if (dataAvailable != null) {
+      output["dataAvailable"] = dataAvailable;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchData */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for sending a turn-based match data object. */
+class TurnBasedMatchDataRequest {
+
+  /** The byte representation of the data (limited to 128 kB), as a Base64-encoded string with the URL_SAFE encoding option. */
+  core.String data;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchDataRequest. */
+  core.String kind;
+
+  /** Create new TurnBasedMatchDataRequest from JSON data */
+  TurnBasedMatchDataRequest.fromJson(core.Map json) {
+    if (json.containsKey("data")) {
+      data = json["data"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchDataRequest */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (data != null) {
+      output["data"] = data;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchDataRequest */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a list of turn-based matches. */
+class TurnBasedMatchList {
+
+  /** The matches. */
+  core.List<TurnBasedMatch> items;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchList. */
+  core.String kind;
+
+  /** The pagination token for the next page of results. */
+  core.String nextPageToken;
+
+  /** Create new TurnBasedMatchList from JSON data */
+  TurnBasedMatchList.fromJson(core.Map json) {
+    if (json.containsKey("items")) {
+      items = json["items"].map((itemsItem) => new TurnBasedMatch.fromJson(itemsItem)).toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchList */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (items != null) {
+      output["items"] = items.map((itemsItem) => itemsItem.toJson()).toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchList */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for turn-based match modification metadata. */
+class TurnBasedMatchModification {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchModification. */
+  core.String kind;
+
+  /** The timestamp at which they modified the match, in milliseconds since the epoch in UTC. */
+  core.int modifiedTimestampMillis;
+
+  /** The ID of the participant that modified the match. */
+  core.String participantId;
+
+  /** Create new TurnBasedMatchModification from JSON data */
+  TurnBasedMatchModification.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("modifiedTimestampMillis")) {
+      modifiedTimestampMillis = (json["modifiedTimestampMillis"] is core.String) ? core.int.parse(json["modifiedTimestampMillis"]) : json["modifiedTimestampMillis"];
+    }
+    if (json.containsKey("participantId")) {
+      participantId = json["participantId"];
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchModification */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (modifiedTimestampMillis != null) {
+      output["modifiedTimestampMillis"] = modifiedTimestampMillis;
+    }
+    if (participantId != null) {
+      output["participantId"] = participantId;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchModification */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a participant in a turn-based match. */
+class TurnBasedMatchParticipant {
+
+  /** True if this participant was auto-matched with the requesting player. */
+  core.bool autoMatched;
+
+  /** Information about a player that has been anonymously auto-matched against the requesting player. (Either player or autoMatchedPlayer will be set.) */
+  AnonymousPlayer autoMatchedPlayer;
+
+  /** An identifier for the participant in the scope of the match. Cannot be used to identify a player across matches or in other contexts. */
+  core.String id;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchParticipant. */
+  core.String kind;
+
+  /** Information about the player. Not populated if this player was anonymously auto-matched against the requesting player. (Either player or autoMatchedPlayer will be set.) */
+  Player player;
+
+  /** The status of the participant with respect to the match.
+Possible values are:  
+- "PARTICIPANT_NOT_INVITED_YET" - The participant is slated to be invited to the match, but the invitation has not been sent; the invite will be sent when it becomes their turn. 
+- "PARTICIPANT_INVITED" - The participant has been invited to join the match, but has not yet responded. 
+- "PARTICIPANT_JOINED" - The participant has joined the match (either after creating it or accepting an invitation.) 
+- "PARTICIPANT_DECLINED" - The participant declined an invitation to join the match. 
+- "PARTICIPANT_LEFT" - The participant joined the match and then left it. 
+- "PARTICIPANT_FINISHED" - The participant finished playing in the match. 
+- "PARTICIPANT_UNRESPONSIVE" - The participant did not take their turn in the allotted time. */
+  core.String status;
+
+  /** Create new TurnBasedMatchParticipant from JSON data */
+  TurnBasedMatchParticipant.fromJson(core.Map json) {
+    if (json.containsKey("autoMatched")) {
+      autoMatched = json["autoMatched"];
+    }
+    if (json.containsKey("autoMatchedPlayer")) {
+      autoMatchedPlayer = new AnonymousPlayer.fromJson(json["autoMatchedPlayer"]);
+    }
+    if (json.containsKey("id")) {
+      id = json["id"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("player")) {
+      player = new Player.fromJson(json["player"]);
+    }
+    if (json.containsKey("status")) {
+      status = json["status"];
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchParticipant */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (autoMatched != null) {
+      output["autoMatched"] = autoMatched;
+    }
+    if (autoMatchedPlayer != null) {
+      output["autoMatchedPlayer"] = autoMatchedPlayer.toJson();
+    }
+    if (id != null) {
+      output["id"] = id;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (player != null) {
+      output["player"] = player.toJson();
+    }
+    if (status != null) {
+      output["status"] = status;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchParticipant */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a rematch response. */
+class TurnBasedMatchRematch {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchRematch. */
+  core.String kind;
+
+  /** The old match that the rematch was created from; will be updated such that the rematchId field will point at the new match. */
+  TurnBasedMatch previousMatch;
+
+  /** The newly created match; a rematch of the old match with the same participants. */
+  TurnBasedMatch rematch;
+
+  /** Create new TurnBasedMatchRematch from JSON data */
+  TurnBasedMatchRematch.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("previousMatch")) {
+      previousMatch = new TurnBasedMatch.fromJson(json["previousMatch"]);
+    }
+    if (json.containsKey("rematch")) {
+      rematch = new TurnBasedMatch.fromJson(json["rematch"]);
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchRematch */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (previousMatch != null) {
+      output["previousMatch"] = previousMatch.toJson();
+    }
+    if (rematch != null) {
+      output["rematch"] = rematch.toJson();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchRematch */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a turn-based match results object. */
+class TurnBasedMatchResults {
+
+  /** The final match data. */
+  TurnBasedMatchDataRequest data;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchResults. */
+  core.String kind;
+
+  /** The version of the match being updated. */
+  core.int matchVersion;
+
+  /** The match results for the participants in the match. */
+  core.List<ParticipantResult> results;
+
+  /** Create new TurnBasedMatchResults from JSON data */
+  TurnBasedMatchResults.fromJson(core.Map json) {
+    if (json.containsKey("data")) {
+      data = new TurnBasedMatchDataRequest.fromJson(json["data"]);
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("matchVersion")) {
+      matchVersion = json["matchVersion"];
+    }
+    if (json.containsKey("results")) {
+      results = json["results"].map((resultsItem) => new ParticipantResult.fromJson(resultsItem)).toList();
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchResults */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (data != null) {
+      output["data"] = data.toJson();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (matchVersion != null) {
+      output["matchVersion"] = matchVersion;
+    }
+    if (results != null) {
+      output["results"] = results.map((resultsItem) => resultsItem.toJson()).toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchResults */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a list of turn-based matches returned from a sync. */
+class TurnBasedMatchSync {
+
+  /** The matches. */
+  core.List<TurnBasedMatch> items;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchSync. */
+  core.String kind;
+
+  /** True if there were more matches available to fetch at the time the response was generated (which were not returned due to page size limits.) */
+  core.bool moreAvailable;
+
+  /** The pagination token for the next page of results. */
+  core.String nextPageToken;
+
+  /** Create new TurnBasedMatchSync from JSON data */
+  TurnBasedMatchSync.fromJson(core.Map json) {
+    if (json.containsKey("items")) {
+      items = json["items"].map((itemsItem) => new TurnBasedMatch.fromJson(itemsItem)).toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("moreAvailable")) {
+      moreAvailable = json["moreAvailable"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchSync */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (items != null) {
+      output["items"] = items.map((itemsItem) => itemsItem.toJson()).toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (moreAvailable != null) {
+      output["moreAvailable"] = moreAvailable;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchSync */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for the object representing a turn. */
+class TurnBasedMatchTurn {
+
+  /** The shared game state data after the turn is over. */
+  TurnBasedMatchDataRequest data;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#turnBasedMatchTurn. */
+  core.String kind;
+
+  /** The version of this match: an increasing counter, used to avoid out-of-date updates to the match. */
+  core.int matchVersion;
+
+  /** The ID of the participant who should take their turn next. May be set to the current player's participant ID to update match state without changing the turn. If not set, the match will wait for other player(s) to join via automatching; this is only valid if automatch criteria is set on the match with remaining slots for automatched players. */
+  core.String pendingParticipantId;
+
+  /** The match results for the participants in the match. */
+  core.List<ParticipantResult> results;
+
+  /** Create new TurnBasedMatchTurn from JSON data */
+  TurnBasedMatchTurn.fromJson(core.Map json) {
+    if (json.containsKey("data")) {
+      data = new TurnBasedMatchDataRequest.fromJson(json["data"]);
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("matchVersion")) {
+      matchVersion = json["matchVersion"];
+    }
+    if (json.containsKey("pendingParticipantId")) {
+      pendingParticipantId = json["pendingParticipantId"];
+    }
+    if (json.containsKey("results")) {
+      results = json["results"].map((resultsItem) => new ParticipantResult.fromJson(resultsItem)).toList();
+    }
+  }
+
+  /** Create JSON Object for TurnBasedMatchTurn */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (data != null) {
+      output["data"] = data.toJson();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (matchVersion != null) {
+      output["matchVersion"] = matchVersion;
+    }
+    if (pendingParticipantId != null) {
+      output["pendingParticipantId"] = pendingParticipantId;
+    }
+    if (results != null) {
+      output["results"] = results.map((resultsItem) => resultsItem.toJson()).toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of TurnBasedMatchTurn */
   core.String toString() => JSON.encode(this.toJson());
 
 }

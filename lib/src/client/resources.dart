@@ -254,6 +254,37 @@ class AchievementsResource_ {
     return response
       .then((data) => new AchievementUnlockResponse.fromJson(data));
   }
+
+  /**
+   * Updates multiple achievements for the currently authenticated player.
+   *
+   * [request] - AchievementUpdateMultipleRequest to send in this request
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<AchievementUpdateMultipleResponse> updateMultiple(AchievementUpdateMultipleRequest request, {core.Map optParams}) {
+    var url = "achievements/updateMultiple";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new AchievementUpdateMultipleResponse.fromJson(data));
+  }
 }
 
 class ApplicationsResource_ {
@@ -388,7 +419,7 @@ class LeaderboardsResource_ {
    *
    * [maxResults] - The maximum number of leaderboards to return in the response. For any response, the actual number of leaderboards returned may be less than the specified maxResults.
    *   Minimum: 1
-   *   Maximum: 100
+   *   Maximum: 200
    *
    * [pageToken] - The token returned by the previous request.
    *
@@ -460,6 +491,120 @@ class PlayersResource_ {
     response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
     return response
       .then((data) => new Player.fromJson(data));
+  }
+
+  /**
+   * Get the collection of players for the currently authenticated user.
+   *
+   * [collection] - Collection of players being retrieved
+   *   Allowed values:
+   *     playedWith - Retrieve a list of players you have played a multiplayer game (realtime or turn-based) with recently.
+   *
+   * [maxResults] - The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified maxResults.
+   *   Minimum: 1
+   *   Maximum: 15
+   *
+   * [pageToken] - The token returned by the previous request.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<PlayerListResponse> list(core.String collection, {core.int maxResults, core.String pageToken, core.Map optParams}) {
+    var url = "players/me/players/{collection}";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (collection == null) paramErrors.add("collection is required");
+    if (collection != null && !["playedWith"].contains(collection)) {
+      paramErrors.add("Allowed values for collection: playedWith");
+    }
+    if (collection != null) urlParams["collection"] = collection;
+    if (maxResults != null) queryParams["maxResults"] = maxResults;
+    if (pageToken != null) queryParams["pageToken"] = pageToken;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new PlayerListResponse.fromJson(data));
+  }
+}
+
+class PushtokensResource_ {
+
+  final Client _client;
+
+  PushtokensResource_(Client client) :
+      _client = client;
+
+  /**
+   * Removes a push token for the current user and application. Removing a non-existent push token will report success.
+   *
+   * [request] - PushTokenId to send in this request
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<core.Map> remove(PushTokenId request, {core.Map optParams}) {
+    var url = "pushtokens/remove";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
+    return response;
+  }
+
+  /**
+   * Registers a push token for the current user and application.
+   *
+   * [request] - PushToken to send in this request
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<core.Map> update(PushToken request, {core.Map optParams}) {
+    var url = "pushtokens";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
+    return response;
   }
 }
 
@@ -620,7 +765,7 @@ class RoomsResource_ {
    *
    * [roomId] - The ID of the room.
    *
-   * [language] - Specify the preferred language to use to format room info.
+   * [language] - The preferred language to use for strings returned by this method.
    *
    * [optParams] - Additional query parameters
    */
@@ -1086,6 +1231,513 @@ NOTE: You cannot ask for 'ALL' leaderboards and 'ALL' timeSpans in the same requ
     response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
     return response
       .then((data) => new PlayerScoreListResponse.fromJson(data));
+  }
+}
+
+class TurnBasedMatchesResource_ {
+
+  final Client _client;
+
+  TurnBasedMatchesResource_(Client client) :
+      _client = client;
+
+  /**
+   * Cancel a turn-based match.
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<core.Map> cancel(core.String matchId, {core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}/cancel";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", urlParams: urlParams, queryParams: queryParams);
+    return response;
+  }
+
+  /**
+   * Create a turn-based match.
+   *
+   * [request] - TurnBasedMatchCreateRequest to send in this request
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatch> create(TurnBasedMatchCreateRequest request, {core.String language, core.Map optParams}) {
+    var url = "turnbasedmatches/create";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatch.fromJson(data));
+  }
+
+  /**
+   * Decline an invitation to play a turn-based match.
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatch> decline(core.String matchId, {core.String language, core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}/decline";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatch.fromJson(data));
+  }
+
+  /**
+   * Dismiss a turn-based match from the match list. The match will no longer show up in the list and will not generate notifications.
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<core.Map> dismiss(core.String matchId, {core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}/dismiss";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", urlParams: urlParams, queryParams: queryParams);
+    return response;
+  }
+
+  /**
+   * Finish a turn-based match. Each player should make this call once, after all results are in. Only the player whose turn it is may make the first call to Finish, and can pass in the final match state.
+   *
+   * [request] - TurnBasedMatchResults to send in this request
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatch> finish(TurnBasedMatchResults request, core.String matchId, {core.String language, core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}/finish";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatch.fromJson(data));
+  }
+
+  /**
+   * Get the data for a turn-based match.
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [includeMatchData] - Get match data along with metadata.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatch> get(core.String matchId, {core.bool includeMatchData, core.String language, core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (includeMatchData != null) queryParams["includeMatchData"] = includeMatchData;
+    if (language != null) queryParams["language"] = language;
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatch.fromJson(data));
+  }
+
+  /**
+   * Join a turn-based match.
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatch> join(core.String matchId, {core.String language, core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}/join";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatch.fromJson(data));
+  }
+
+  /**
+   * Leave a turn-based match when it is not the current player's turn, without canceling the match.
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatch> leave(core.String matchId, {core.String language, core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}/leave";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatch.fromJson(data));
+  }
+
+  /**
+   * Leave a turn-based match during the current player's turn, without canceling the match.
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [matchVersion] - The version of the match being updated.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [pendingParticipantId] - The ID of another participant who should take their turn next. If not set, the match will wait for other player(s) to join via automatching; this is only valid if automatch criteria is set on the match with remaining slots for automatched players.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatch> leaveTurn(core.String matchId, core.int matchVersion, {core.String language, core.String pendingParticipantId, core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}/leaveTurn";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (matchVersion == null) paramErrors.add("matchVersion is required");
+    if (matchVersion != null) queryParams["matchVersion"] = matchVersion;
+    if (pendingParticipantId != null) queryParams["pendingParticipantId"] = pendingParticipantId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatch.fromJson(data));
+  }
+
+  /**
+   * Returns turn-based matches the player is or was involved in.
+   *
+   * [includeMatchData] - True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be retrievable on request.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [maxCompletedMatches] - The maximum number of completed or canceled matches to return in the response. If not set, all matches returned could be completed or canceled.
+   *   Minimum: 0
+   *   Maximum: 500
+   *
+   * [maxResults] - The maximum number of matches to return in the response, used for paging. For any response, the actual number of matches to return may be less than the specified maxResults.
+   *   Minimum: 1
+   *   Maximum: 500
+   *
+   * [pageToken] - The token returned by the previous request.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatchList> list({core.bool includeMatchData, core.String language, core.int maxCompletedMatches, core.int maxResults, core.String pageToken, core.Map optParams}) {
+    var url = "turnbasedmatches";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (includeMatchData != null) queryParams["includeMatchData"] = includeMatchData;
+    if (language != null) queryParams["language"] = language;
+    if (maxCompletedMatches != null) queryParams["maxCompletedMatches"] = maxCompletedMatches;
+    if (maxResults != null) queryParams["maxResults"] = maxResults;
+    if (pageToken != null) queryParams["pageToken"] = pageToken;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatchList.fromJson(data));
+  }
+
+  /**
+   * Create a rematch of a match that was previously completed, with the same participants. This can be called by only one player on a match still in their list; the player must have called Finish first. Returns the newly created match; it will be the caller's turn.
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [requestId] - A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled correctly across retries.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatchRematch> rematch(core.String matchId, {core.String language, core.int requestId, core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}/rematch";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (requestId != null) queryParams["requestId"] = requestId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "POST", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatchRematch.fromJson(data));
+  }
+
+  /**
+   * Returns turn-based matches the player is or was involved in that changed since the last sync call, with the least recent changes coming first. Matches that should be removed from the local cache will have a status of MATCH_DELETED.
+   *
+   * [includeMatchData] - True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be retrievable on request.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [maxCompletedMatches] - The maximum number of completed or canceled matches to return in the response. If not set, all matches returned could be completed or canceled.
+   *   Minimum: 0
+   *   Maximum: 500
+   *
+   * [maxResults] - The maximum number of matches to return in the response, used for paging. For any response, the actual number of matches to return may be less than the specified maxResults.
+   *   Minimum: 1
+   *   Maximum: 500
+   *
+   * [pageToken] - The token returned by the previous request.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatchSync> sync({core.bool includeMatchData, core.String language, core.int maxCompletedMatches, core.int maxResults, core.String pageToken, core.Map optParams}) {
+    var url = "turnbasedmatches/sync";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (includeMatchData != null) queryParams["includeMatchData"] = includeMatchData;
+    if (language != null) queryParams["language"] = language;
+    if (maxCompletedMatches != null) queryParams["maxCompletedMatches"] = maxCompletedMatches;
+    if (maxResults != null) queryParams["maxResults"] = maxResults;
+    if (pageToken != null) queryParams["pageToken"] = pageToken;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatchSync.fromJson(data));
+  }
+
+  /**
+   * Commit the results of a player turn.
+   *
+   * [request] - TurnBasedMatchTurn to send in this request
+   *
+   * [matchId] - The ID of the match.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<TurnBasedMatch> takeTurn(TurnBasedMatchTurn request, core.String matchId, {core.String language, core.Map optParams}) {
+    var url = "turnbasedmatches/{matchId}/turn";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (matchId == null) paramErrors.add("matchId is required");
+    if (matchId != null) urlParams["matchId"] = matchId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new TurnBasedMatch.fromJson(data));
   }
 }
 
