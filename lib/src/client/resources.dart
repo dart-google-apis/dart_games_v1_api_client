@@ -465,14 +465,17 @@ class PlayersResource_ {
    *
    * [playerId] - A player ID. A value of me may be used in place of the authenticated player's ID.
    *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
    * [optParams] - Additional query parameters
    */
-  async.Future<Player> get(core.String playerId, {core.Map optParams}) {
+  async.Future<Player> get(core.String playerId, {core.String language, core.Map optParams}) {
     var url = "players/{playerId}";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
 
     var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
     if (playerId == null) paramErrors.add("playerId is required");
     if (playerId != null) urlParams["playerId"] = playerId;
     if (optParams != null) {
@@ -500,6 +503,8 @@ class PlayersResource_ {
    *   Allowed values:
    *     playedWith - Retrieve a list of players you have played a multiplayer game (realtime or turn-based) with recently.
    *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
    * [maxResults] - The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified maxResults.
    *   Minimum: 1
    *   Maximum: 15
@@ -508,7 +513,7 @@ class PlayersResource_ {
    *
    * [optParams] - Additional query parameters
    */
-  async.Future<PlayerListResponse> list(core.String collection, {core.int maxResults, core.String pageToken, core.Map optParams}) {
+  async.Future<PlayerListResponse> list(core.String collection, {core.String language, core.int maxResults, core.String pageToken, core.Map optParams}) {
     var url = "players/me/players/{collection}";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
@@ -519,6 +524,7 @@ class PlayersResource_ {
       paramErrors.add("Allowed values for collection: playedWith");
     }
     if (collection != null) urlParams["collection"] = collection;
+    if (language != null) queryParams["language"] = language;
     if (maxResults != null) queryParams["maxResults"] = maxResults;
     if (pageToken != null) queryParams["pageToken"] = pageToken;
     if (optParams != null) {
@@ -700,14 +706,17 @@ class RoomsResource_ {
    *
    * [roomId] - The ID of the room.
    *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
    * [optParams] - Additional query parameters
    */
-  async.Future<Room> decline(core.String roomId, {core.Map optParams}) {
+  async.Future<Room> decline(core.String roomId, {core.String language, core.Map optParams}) {
     var url = "rooms/{roomId}/decline";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
 
     var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
     if (roomId == null) paramErrors.add("roomId is required");
     if (roomId != null) urlParams["roomId"] = roomId;
     if (optParams != null) {
@@ -803,14 +812,17 @@ class RoomsResource_ {
    *
    * [roomId] - The ID of the room.
    *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
    * [optParams] - Additional query parameters
    */
-  async.Future<Room> join(RoomJoinRequest request, core.String roomId, {core.Map optParams}) {
+  async.Future<Room> join(RoomJoinRequest request, core.String roomId, {core.String language, core.Map optParams}) {
     var url = "rooms/{roomId}/join";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
 
     var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
     if (roomId == null) paramErrors.add("roomId is required");
     if (roomId != null) urlParams["roomId"] = roomId;
     if (optParams != null) {
@@ -838,14 +850,17 @@ class RoomsResource_ {
    *
    * [roomId] - The ID of the room.
    *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
    * [optParams] - Additional query parameters
    */
-  async.Future<Room> leave(RoomLeaveRequest request, core.String roomId, {core.Map optParams}) {
+  async.Future<Room> leave(RoomLeaveRequest request, core.String roomId, {core.String language, core.Map optParams}) {
     var url = "rooms/{roomId}/leave";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
 
     var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
     if (roomId == null) paramErrors.add("roomId is required");
     if (roomId != null) urlParams["roomId"] = roomId;
     if (optParams != null) {
@@ -913,14 +928,17 @@ class RoomsResource_ {
    *
    * [roomId] - The ID of the room.
    *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
    * [optParams] - Additional query parameters
    */
-  async.Future<RoomStatus> reportStatus(RoomP2PStatuses request, core.String roomId, {core.Map optParams}) {
+  async.Future<RoomStatus> reportStatus(RoomP2PStatuses request, core.String roomId, {core.String language, core.Map optParams}) {
     var url = "rooms/{roomId}/reportstatus";
     var urlParams = new core.Map();
     var queryParams = new core.Map();
 
     var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
     if (roomId == null) paramErrors.add("roomId is required");
     if (roomId != null) urlParams["roomId"] = roomId;
     if (optParams != null) {

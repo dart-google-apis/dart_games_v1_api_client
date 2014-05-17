@@ -1675,11 +1675,17 @@ class NetworkDiagnostics {
   /** The Android network type. */
   core.int androidNetworkType;
 
-  /** iOS network type. */
+  /** iOS network type as defined in Reachability.h. */
   core.int iosNetworkType;
 
   /** Uniquely identifies the type of this resource. Value is always the fixed string games#networkDiagnostics. */
   core.String kind;
+
+  /** The MCC+MNC code for the client's network connection. On Android: http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperator() On iOS, see: https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html */
+  core.String networkOperatorCode;
+
+  /** The name of the carrier of the client's network connection. On Android: http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperatorName() On iOS: https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html#//apple_ref/occ/instp/CTCarrier/carrierName */
+  core.String networkOperatorName;
 
   /** The amount of time in milliseconds it took for the client to establish a connection with the XMPP server. */
   core.int registrationLatencyMillis;
@@ -1697,6 +1703,12 @@ class NetworkDiagnostics {
     }
     if (json.containsKey("kind")) {
       kind = json["kind"];
+    }
+    if (json.containsKey("networkOperatorCode")) {
+      networkOperatorCode = json["networkOperatorCode"];
+    }
+    if (json.containsKey("networkOperatorName")) {
+      networkOperatorName = json["networkOperatorName"];
     }
     if (json.containsKey("registrationLatencyMillis")) {
       registrationLatencyMillis = json["registrationLatencyMillis"];
@@ -1718,6 +1730,12 @@ class NetworkDiagnostics {
     }
     if (kind != null) {
       output["kind"] = kind;
+    }
+    if (networkOperatorCode != null) {
+      output["networkOperatorCode"] = networkOperatorCode;
+    }
+    if (networkOperatorName != null) {
+      output["networkOperatorName"] = networkOperatorName;
     }
     if (registrationLatencyMillis != null) {
       output["registrationLatencyMillis"] = registrationLatencyMillis;
@@ -1951,7 +1969,7 @@ class PeerSessionDiagnostics {
 
 }
 
-/** This is a JSON template for 3P metadata about a player playing a game. */
+/** This is a JSON template for metadata about a player playing a game with the currently authenticated user. */
 class Played {
 
   /** True if the player was auto-matched with the currently authenticated user. */
@@ -3282,11 +3300,17 @@ class RoomLeaveDiagnostics {
   /** Android network type. http://developer.android.com/reference/android/net/NetworkInfo.html#getType() */
   core.int androidNetworkType;
 
-  /** iOS network type. */
+  /** iOS network type as defined in Reachability.h. */
   core.int iosNetworkType;
 
   /** Uniquely identifies the type of this resource. Value is always the fixed string games#roomLeaveDiagnostics. */
   core.String kind;
+
+  /** The MCC+MNC code for the client's network connection. On Android: http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperator() On iOS, see: https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html */
+  core.String networkOperatorCode;
+
+  /** The name of the carrier of the client's network connection. On Android: http://developer.android.com/reference/android/telephony/TelephonyManager.html#getNetworkOperatorName() On iOS: https://developer.apple.com/library/ios/documentation/NetworkingInternet/Reference/CTCarrier/Reference/Reference.html#//apple_ref/occ/instp/CTCarrier/carrierName */
+  core.String networkOperatorName;
 
   /** Diagnostics about all peer sessions. */
   core.List<PeerSessionDiagnostics> peerSession;
@@ -3307,6 +3331,12 @@ class RoomLeaveDiagnostics {
     }
     if (json.containsKey("kind")) {
       kind = json["kind"];
+    }
+    if (json.containsKey("networkOperatorCode")) {
+      networkOperatorCode = json["networkOperatorCode"];
+    }
+    if (json.containsKey("networkOperatorName")) {
+      networkOperatorName = json["networkOperatorName"];
     }
     if (json.containsKey("peerSession")) {
       peerSession = json["peerSession"].map((peerSessionItem) => new PeerSessionDiagnostics.fromJson(peerSessionItem)).toList();
@@ -3331,6 +3361,12 @@ class RoomLeaveDiagnostics {
     }
     if (kind != null) {
       output["kind"] = kind;
+    }
+    if (networkOperatorCode != null) {
+      output["networkOperatorCode"] = networkOperatorCode;
+    }
+    if (networkOperatorName != null) {
+      output["networkOperatorName"] = networkOperatorName;
     }
     if (peerSession != null) {
       output["peerSession"] = peerSession.map((peerSessionItem) => peerSessionItem.toJson()).toList();
@@ -3364,7 +3400,13 @@ Possible values are:
 - "REALTIME_PEER_CONNECTION_FAILURE" - The client was unable to establish a connection to other peer(s). 
 - "REALTIME_SERVER_CONNECTION_FAILURE" - The client was unable to communicate with the server. 
 - "REALTIME_SERVER_ERROR" - The client received an error response when it tried to communicate with the server. 
-- "REALTIME_TIMEOUT" - The client timed out while waiting for a room. */
+- "REALTIME_TIMEOUT" - The client timed out while waiting for a room. 
+- "REALTIME_CLIENT_DISCONNECTING" - The client disconnects without first calling Leave. 
+- "REALTIME_SIGN_OUT" - The user signed out of G+ while in the room. 
+- "REALTIME_GAME_CRASHED" - The game crashed. 
+- "REALTIME_ROOM_SERVICE_CRASHED" - RoomAndroidService crashed. 
+- "REALTIME_DIFFERENT_CLIENT_ROOM_OPERATION" - Another client is trying to enter a room. 
+- "REALTIME_SAME_CLIENT_ROOM_OPERATION" - The same client is trying to enter a new room. */
   core.String reason;
 
   /** Create new RoomLeaveRequest from JSON data */
