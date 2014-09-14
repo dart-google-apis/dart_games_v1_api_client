@@ -11,12 +11,17 @@ abstract class Client extends ClientBase {
   AchievementDefinitionsResource_ get achievementDefinitions => new AchievementDefinitionsResource_(this);
   AchievementsResource_ get achievements => new AchievementsResource_(this);
   ApplicationsResource_ get applications => new ApplicationsResource_(this);
+  EventsResource_ get events => new EventsResource_(this);
   LeaderboardsResource_ get leaderboards => new LeaderboardsResource_(this);
+  MetagameResource_ get metagame => new MetagameResource_(this);
   PlayersResource_ get players => new PlayersResource_(this);
   PushtokensResource_ get pushtokens => new PushtokensResource_(this);
+  QuestMilestonesResource_ get questMilestones => new QuestMilestonesResource_(this);
+  QuestsResource_ get quests => new QuestsResource_(this);
   RevisionsResource_ get revisions => new RevisionsResource_(this);
   RoomsResource_ get rooms => new RoomsResource_(this);
   ScoresResource_ get scores => new ScoresResource_(this);
+  SnapshotsResource_ get snapshots => new SnapshotsResource_(this);
   TurnBasedMatchesResource_ get turnBasedMatches => new TurnBasedMatchesResource_(this);
 
   //

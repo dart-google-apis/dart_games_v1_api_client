@@ -12,6 +12,9 @@ Possible values are:
   /** The description of the achievement. */
   core.String description;
 
+  /** Experience points which will be earned when unlocking this achievement. */
+  core.int experiencePoints;
+
   /** The total steps for an incremental achievement as a string. */
   core.String formattedTotalSteps;
 
@@ -54,6 +57,9 @@ Possible values are:
     if (json.containsKey("description")) {
       description = json["description"];
     }
+    if (json.containsKey("experiencePoints")) {
+      experiencePoints = (json["experiencePoints"] is core.String) ? core.int.parse(json["experiencePoints"]) : json["experiencePoints"];
+    }
     if (json.containsKey("formattedTotalSteps")) {
       formattedTotalSteps = json["formattedTotalSteps"];
     }
@@ -95,6 +101,9 @@ Possible values are:
     }
     if (description != null) {
       output["description"] = description;
+    }
+    if (experiencePoints != null) {
+      output["experiencePoints"] = experiencePoints;
     }
     if (formattedTotalSteps != null) {
       output["formattedTotalSteps"] = formattedTotalSteps;
@@ -709,6 +718,11 @@ class Application {
   /** The description of the application. */
   core.String description;
 
+  /** A list of features that have been enabled for the application.
+Possible values are:  
+- "SNAPSHOTS" - Snapshots has been enabled */
+  core.List<core.String> enabledFeatures;
+
   /** The ID of the application. */
   core.String id;
 
@@ -743,6 +757,9 @@ class Application {
     }
     if (json.containsKey("description")) {
       description = json["description"];
+    }
+    if (json.containsKey("enabledFeatures")) {
+      enabledFeatures = json["enabledFeatures"].toList();
     }
     if (json.containsKey("id")) {
       id = json["id"];
@@ -782,6 +799,9 @@ class Application {
     }
     if (description != null) {
       output["description"] = description;
+    }
+    if (enabledFeatures != null) {
+      output["enabledFeatures"] = enabledFeatures.toList();
     }
     if (id != null) {
       output["id"] = id;
@@ -853,6 +873,637 @@ class ApplicationCategory {
   }
 
   /** Return String representation of ApplicationCategory */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for data related to individual game categories. */
+class Category {
+
+  /** The category name. */
+  core.String category;
+
+  /** Experience points earned in this category. */
+  core.int experiencePoints;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#category. */
+  core.String kind;
+
+  /** Create new Category from JSON data */
+  Category.fromJson(core.Map json) {
+    if (json.containsKey("category")) {
+      category = json["category"];
+    }
+    if (json.containsKey("experiencePoints")) {
+      experiencePoints = (json["experiencePoints"] is core.String) ? core.int.parse(json["experiencePoints"]) : json["experiencePoints"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+  }
+
+  /** Create JSON Object for Category */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (category != null) {
+      output["category"] = category;
+    }
+    if (experiencePoints != null) {
+      output["experiencePoints"] = experiencePoints;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of Category */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a list of category data objects. */
+class CategoryListResponse {
+
+  /** The list of categories with usage data. */
+  core.List<Category> items;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#categoryListResponse. */
+  core.String kind;
+
+  /** Token corresponding to the next page of results. */
+  core.String nextPageToken;
+
+  /** Create new CategoryListResponse from JSON data */
+  CategoryListResponse.fromJson(core.Map json) {
+    if (json.containsKey("items")) {
+      items = json["items"].map((itemsItem) => new Category.fromJson(itemsItem)).toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for CategoryListResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (items != null) {
+      output["items"] = items.map((itemsItem) => itemsItem.toJson()).toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of CategoryListResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a batch update failure resource. */
+class EventBatchRecordFailure {
+
+  /** The cause for the update failure.
+Possible values are:  
+- "TOO_LARGE": A batch request was issued with more events than are allowed in a single batch. 
+- "TIME_PERIOD_EXPIRED": A batch was sent with data too far in the past to record. 
+- "TIME_PERIOD_SHORT": A batch was sent with a time range that was too short. 
+- "TIME_PERIOD_LONG": A batch was sent with a time range that was too long. 
+- "ALREADY_UPDATED": An attempt was made to record a batch of data which was already seen. 
+- "RECORD_RATE_HIGH": An attempt was made to record data faster than the server will apply updates. */
+  core.String failureCause;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventBatchRecordFailure. */
+  core.String kind;
+
+  /** The time range which was rejected; empty for a request-wide failure. */
+  EventPeriodRange range;
+
+  /** Create new EventBatchRecordFailure from JSON data */
+  EventBatchRecordFailure.fromJson(core.Map json) {
+    if (json.containsKey("failureCause")) {
+      failureCause = json["failureCause"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("range")) {
+      range = new EventPeriodRange.fromJson(json["range"]);
+    }
+  }
+
+  /** Create JSON Object for EventBatchRecordFailure */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (failureCause != null) {
+      output["failureCause"] = failureCause;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (range != null) {
+      output["range"] = range.toJson();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventBatchRecordFailure */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an event child relationship resource. */
+class EventChild {
+
+  /** The ID of the child event. */
+  core.String childId;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventChild. */
+  core.String kind;
+
+  /** Create new EventChild from JSON data */
+  EventChild.fromJson(core.Map json) {
+    if (json.containsKey("childId")) {
+      childId = json["childId"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+  }
+
+  /** Create JSON Object for EventChild */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (childId != null) {
+      output["childId"] = childId;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventChild */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an event definition resource. */
+class EventDefinition {
+
+  /** A list of events that are a child of this event. */
+  core.List<EventChild> childEvents;
+
+  /** Description of what this event represents. */
+  core.String description;
+
+  /** The name to display for the event. */
+  core.String displayName;
+
+  /** The ID of the event. */
+  core.String id;
+
+  /** The base URL for the image that represents the event. */
+  core.String imageUrl;
+
+  /** Indicates whether the icon image being returned is a default image, or is game-provided. */
+  core.bool isDefaultImageUrl;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventDefinition. */
+  core.String kind;
+
+  /** The visibility of event being tracked in this definition.
+Possible values are:  
+- "REVEALED": This event should be visible to all users. 
+- "HIDDEN": This event should only be shown to users that have recorded this event at least once. */
+  core.String visibility;
+
+  /** Create new EventDefinition from JSON data */
+  EventDefinition.fromJson(core.Map json) {
+    if (json.containsKey("childEvents")) {
+      childEvents = json["childEvents"].map((childEventsItem) => new EventChild.fromJson(childEventsItem)).toList();
+    }
+    if (json.containsKey("description")) {
+      description = json["description"];
+    }
+    if (json.containsKey("displayName")) {
+      displayName = json["displayName"];
+    }
+    if (json.containsKey("id")) {
+      id = json["id"];
+    }
+    if (json.containsKey("imageUrl")) {
+      imageUrl = json["imageUrl"];
+    }
+    if (json.containsKey("isDefaultImageUrl")) {
+      isDefaultImageUrl = json["isDefaultImageUrl"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("visibility")) {
+      visibility = json["visibility"];
+    }
+  }
+
+  /** Create JSON Object for EventDefinition */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (childEvents != null) {
+      output["childEvents"] = childEvents.map((childEventsItem) => childEventsItem.toJson()).toList();
+    }
+    if (description != null) {
+      output["description"] = description;
+    }
+    if (displayName != null) {
+      output["displayName"] = displayName;
+    }
+    if (id != null) {
+      output["id"] = id;
+    }
+    if (imageUrl != null) {
+      output["imageUrl"] = imageUrl;
+    }
+    if (isDefaultImageUrl != null) {
+      output["isDefaultImageUrl"] = isDefaultImageUrl;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (visibility != null) {
+      output["visibility"] = visibility;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventDefinition */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a ListDefinitions response. */
+class EventDefinitionListResponse {
+
+  /** The event definitions. */
+  core.List<EventDefinition> items;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventDefinitionListResponse. */
+  core.String kind;
+
+  /** The pagination token for the next page of results. */
+  core.String nextPageToken;
+
+  /** Create new EventDefinitionListResponse from JSON data */
+  EventDefinitionListResponse.fromJson(core.Map json) {
+    if (json.containsKey("items")) {
+      items = json["items"].map((itemsItem) => new EventDefinition.fromJson(itemsItem)).toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for EventDefinitionListResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (items != null) {
+      output["items"] = items.map((itemsItem) => itemsItem.toJson()).toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventDefinitionListResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an event period time range. */
+class EventPeriodRange {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventPeriodRange. */
+  core.String kind;
+
+  /** The time when this update period ends, in millis, since 1970 UTC (Unix Epoch). */
+  core.int periodEndMillis;
+
+  /** The time when this update period begins, in millis, since 1970 UTC (Unix Epoch). */
+  core.int periodStartMillis;
+
+  /** Create new EventPeriodRange from JSON data */
+  EventPeriodRange.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("periodEndMillis")) {
+      periodEndMillis = (json["periodEndMillis"] is core.String) ? core.int.parse(json["periodEndMillis"]) : json["periodEndMillis"];
+    }
+    if (json.containsKey("periodStartMillis")) {
+      periodStartMillis = (json["periodStartMillis"] is core.String) ? core.int.parse(json["periodStartMillis"]) : json["periodStartMillis"];
+    }
+  }
+
+  /** Create JSON Object for EventPeriodRange */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (periodEndMillis != null) {
+      output["periodEndMillis"] = periodEndMillis;
+    }
+    if (periodStartMillis != null) {
+      output["periodStartMillis"] = periodStartMillis;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventPeriodRange */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an event period update resource. */
+class EventPeriodUpdate {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventPeriodUpdate. */
+  core.String kind;
+
+  /** The time period being covered by this update. */
+  EventPeriodRange timePeriod;
+
+  /** The updates being made for this time period. */
+  core.List<EventUpdateRequest> updates;
+
+  /** Create new EventPeriodUpdate from JSON data */
+  EventPeriodUpdate.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("timePeriod")) {
+      timePeriod = new EventPeriodRange.fromJson(json["timePeriod"]);
+    }
+    if (json.containsKey("updates")) {
+      updates = json["updates"].map((updatesItem) => new EventUpdateRequest.fromJson(updatesItem)).toList();
+    }
+  }
+
+  /** Create JSON Object for EventPeriodUpdate */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (timePeriod != null) {
+      output["timePeriod"] = timePeriod.toJson();
+    }
+    if (updates != null) {
+      output["updates"] = updates.map((updatesItem) => updatesItem.toJson()).toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventPeriodUpdate */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an event update failure resource. */
+class EventRecordFailure {
+
+  /** The ID of the event that was not updated. */
+  core.String eventId;
+
+  /** The cause for the update failure.
+Possible values are:  
+- "NOT_FOUND" - An attempt was made to set an event that was not defined. 
+- "INVALID_UPDATE_VALUE" - An attempt was made to increment an event by a non-positive value. */
+  core.String failureCause;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventRecordFailure. */
+  core.String kind;
+
+  /** Create new EventRecordFailure from JSON data */
+  EventRecordFailure.fromJson(core.Map json) {
+    if (json.containsKey("eventId")) {
+      eventId = json["eventId"];
+    }
+    if (json.containsKey("failureCause")) {
+      failureCause = json["failureCause"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+  }
+
+  /** Create JSON Object for EventRecordFailure */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (eventId != null) {
+      output["eventId"] = eventId;
+    }
+    if (failureCause != null) {
+      output["failureCause"] = failureCause;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventRecordFailure */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an event period update resource. */
+class EventRecordRequest {
+
+  /** The current time when this update was sent, in milliseconds, since 1970 UTC (Unix Epoch). */
+  core.int currentTimeMillis;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventRecordRequest. */
+  core.String kind;
+
+  /** The request ID used to identify this attempt to record events. */
+  core.int requestId;
+
+  /** A list of the time period updates being made in this request. */
+  core.List<EventPeriodUpdate> timePeriods;
+
+  /** Create new EventRecordRequest from JSON data */
+  EventRecordRequest.fromJson(core.Map json) {
+    if (json.containsKey("currentTimeMillis")) {
+      currentTimeMillis = (json["currentTimeMillis"] is core.String) ? core.int.parse(json["currentTimeMillis"]) : json["currentTimeMillis"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("requestId")) {
+      requestId = (json["requestId"] is core.String) ? core.int.parse(json["requestId"]) : json["requestId"];
+    }
+    if (json.containsKey("timePeriods")) {
+      timePeriods = json["timePeriods"].map((timePeriodsItem) => new EventPeriodUpdate.fromJson(timePeriodsItem)).toList();
+    }
+  }
+
+  /** Create JSON Object for EventRecordRequest */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (currentTimeMillis != null) {
+      output["currentTimeMillis"] = currentTimeMillis;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (requestId != null) {
+      output["requestId"] = requestId;
+    }
+    if (timePeriods != null) {
+      output["timePeriods"] = timePeriods.map((timePeriodsItem) => timePeriodsItem.toJson()).toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventRecordRequest */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an event period update resource. */
+class EventUpdateRequest {
+
+  /** The ID of the event being modified in this update. */
+  core.String definitionId;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventUpdateRequest. */
+  core.String kind;
+
+  /** The number of times this event occurred in this time period. */
+  core.int updateCount;
+
+  /** Create new EventUpdateRequest from JSON data */
+  EventUpdateRequest.fromJson(core.Map json) {
+    if (json.containsKey("definitionId")) {
+      definitionId = json["definitionId"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("updateCount")) {
+      updateCount = (json["updateCount"] is core.String) ? core.int.parse(json["updateCount"]) : json["updateCount"];
+    }
+  }
+
+  /** Create JSON Object for EventUpdateRequest */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (definitionId != null) {
+      output["definitionId"] = definitionId;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (updateCount != null) {
+      output["updateCount"] = updateCount;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventUpdateRequest */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an event period update resource. */
+class EventUpdateResponse {
+
+  /** Any batch-wide failures which occurred applying updates. */
+  core.List<EventBatchRecordFailure> batchFailures;
+
+  /** Any failures updating a particular event. */
+  core.List<EventRecordFailure> eventFailures;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#eventUpdateResponse. */
+  core.String kind;
+
+  /** The current status of any updated events */
+  core.List<PlayerEvent> playerEvents;
+
+  /** Create new EventUpdateResponse from JSON data */
+  EventUpdateResponse.fromJson(core.Map json) {
+    if (json.containsKey("batchFailures")) {
+      batchFailures = json["batchFailures"].map((batchFailuresItem) => new EventBatchRecordFailure.fromJson(batchFailuresItem)).toList();
+    }
+    if (json.containsKey("eventFailures")) {
+      eventFailures = json["eventFailures"].map((eventFailuresItem) => new EventRecordFailure.fromJson(eventFailuresItem)).toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("playerEvents")) {
+      playerEvents = json["playerEvents"].map((playerEventsItem) => new PlayerEvent.fromJson(playerEventsItem)).toList();
+    }
+  }
+
+  /** Create JSON Object for EventUpdateResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (batchFailures != null) {
+      output["batchFailures"] = batchFailures.map((batchFailuresItem) => batchFailuresItem.toJson()).toList();
+    }
+    if (eventFailures != null) {
+      output["eventFailures"] = eventFailures.map((eventFailuresItem) => eventFailuresItem.toJson()).toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (playerEvents != null) {
+      output["playerEvents"] = playerEvents.map((playerEventsItem) => playerEventsItem.toJson()).toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of EventUpdateResponse */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -1666,6 +2317,53 @@ class LeaderboardScores {
 
 }
 
+/** This is a JSON template for the metagame config resource */
+class MetagameConfig {
+
+  /** Current version of the metagame configuration data. When this data is updated, the version number will be increased by one. */
+  core.int currentVersion;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#metagameConfig. */
+  core.String kind;
+
+  /** The list of player levels. */
+  core.List<PlayerLevel> playerLevels;
+
+  /** Create new MetagameConfig from JSON data */
+  MetagameConfig.fromJson(core.Map json) {
+    if (json.containsKey("currentVersion")) {
+      currentVersion = json["currentVersion"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("playerLevels")) {
+      playerLevels = json["playerLevels"].map((playerLevelsItem) => new PlayerLevel.fromJson(playerLevelsItem)).toList();
+    }
+  }
+
+  /** Create JSON Object for MetagameConfig */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (currentVersion != null) {
+      output["currentVersion"] = currentVersion;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (playerLevels != null) {
+      output["playerLevels"] = playerLevels.map((playerLevelsItem) => playerLevelsItem.toJson()).toList();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of MetagameConfig */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
 /** This is a JSON template for network diagnostics reported for a client. */
 class NetworkDiagnostics {
 
@@ -2025,17 +2723,23 @@ class Player {
   /** The name to display for the player. */
   core.String displayName;
 
+  /** An object to represent Play Game experience information for the player. */
+  PlayerExperienceInfo experienceInfo;
+
   /** Uniquely identifies the type of this resource. Value is always the fixed string games#player. */
   core.String kind;
 
   /** Details about the last time this player played a multiplayer game with the currently authenticated player. Populated for PLAYED_WITH player collection members. */
   Played lastPlayedWith;
 
-  /** An object representation of the individual components of the player's name. */
+  /** An object representation of the individual components of the player's name. For some players, these fields may not be present. */
   PlayerName name;
 
   /** The ID of the player. */
   core.String playerId;
+
+  /** The player's title rewarded for their game activities. */
+  core.String title;
 
   /** Create new Player from JSON data */
   Player.fromJson(core.Map json) {
@@ -2044,6 +2748,9 @@ class Player {
     }
     if (json.containsKey("displayName")) {
       displayName = json["displayName"];
+    }
+    if (json.containsKey("experienceInfo")) {
+      experienceInfo = new PlayerExperienceInfo.fromJson(json["experienceInfo"]);
     }
     if (json.containsKey("kind")) {
       kind = json["kind"];
@@ -2057,6 +2764,9 @@ class Player {
     if (json.containsKey("playerId")) {
       playerId = json["playerId"];
     }
+    if (json.containsKey("title")) {
+      title = json["title"];
+    }
   }
 
   /** Create JSON Object for Player */
@@ -2068,6 +2778,9 @@ class Player {
     }
     if (displayName != null) {
       output["displayName"] = displayName;
+    }
+    if (experienceInfo != null) {
+      output["experienceInfo"] = experienceInfo.toJson();
     }
     if (kind != null) {
       output["kind"] = kind;
@@ -2081,6 +2794,9 @@ class Player {
     if (playerId != null) {
       output["playerId"] = playerId;
     }
+    if (title != null) {
+      output["title"] = title;
+    }
 
     return output;
   }
@@ -2090,13 +2806,13 @@ class Player {
 
 }
 
-/** An object representation of the individual components of the player's name. */
+/** An object representation of the individual components of the player's name. For some players, these fields may not be present. */
 class PlayerName {
 
-  /** The family name (last name) of this player. */
+  /** The family name of this player. In some places, this is known as the last name. */
   core.String familyName;
 
-  /** The given name (first name) of this player. */
+  /** The given name of this player. In some places, this is known as the first name. */
   core.String givenName;
 
   /** Create new PlayerName from JSON data */
@@ -2141,6 +2857,9 @@ Possible values are:
   /** The current steps for an incremental achievement. */
   core.int currentSteps;
 
+  /** Experience points earned for the achievement. This field is absent for achievements that have not yet been unlocked and 0 for achievements that have been unlocked by testers but that are unpublished. */
+  core.int experiencePoints;
+
   /** The current steps for an incremental achievement as a string. */
   core.String formattedCurrentStepsString;
 
@@ -2160,6 +2879,9 @@ Possible values are:
     }
     if (json.containsKey("currentSteps")) {
       currentSteps = json["currentSteps"];
+    }
+    if (json.containsKey("experiencePoints")) {
+      experiencePoints = (json["experiencePoints"] is core.String) ? core.int.parse(json["experiencePoints"]) : json["experiencePoints"];
     }
     if (json.containsKey("formattedCurrentStepsString")) {
       formattedCurrentStepsString = json["formattedCurrentStepsString"];
@@ -2184,6 +2906,9 @@ Possible values are:
     }
     if (currentSteps != null) {
       output["currentSteps"] = currentSteps;
+    }
+    if (experiencePoints != null) {
+      output["experiencePoints"] = experiencePoints;
     }
     if (formattedCurrentStepsString != null) {
       output["formattedCurrentStepsString"] = formattedCurrentStepsString;
@@ -2249,6 +2974,183 @@ class PlayerAchievementListResponse {
   }
 
   /** Return String representation of PlayerAchievementListResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an event status resource. */
+class PlayerEvent {
+
+  /** The ID of the event definition. */
+  core.String definitionId;
+
+  /** The current number of times this event has occurred, as a string. The formatting of this string depends on the configuration of your event in the Play Games Developer Console. */
+  core.String formattedNumEvents;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerEvent. */
+  core.String kind;
+
+  /** The current number of times this event has occurred. */
+  core.int numEvents;
+
+  /** The ID of the player. */
+  core.String playerId;
+
+  /** Create new PlayerEvent from JSON data */
+  PlayerEvent.fromJson(core.Map json) {
+    if (json.containsKey("definitionId")) {
+      definitionId = json["definitionId"];
+    }
+    if (json.containsKey("formattedNumEvents")) {
+      formattedNumEvents = json["formattedNumEvents"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("numEvents")) {
+      numEvents = (json["numEvents"] is core.String) ? core.int.parse(json["numEvents"]) : json["numEvents"];
+    }
+    if (json.containsKey("playerId")) {
+      playerId = json["playerId"];
+    }
+  }
+
+  /** Create JSON Object for PlayerEvent */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (definitionId != null) {
+      output["definitionId"] = definitionId;
+    }
+    if (formattedNumEvents != null) {
+      output["formattedNumEvents"] = formattedNumEvents;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (numEvents != null) {
+      output["numEvents"] = numEvents;
+    }
+    if (playerId != null) {
+      output["playerId"] = playerId;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of PlayerEvent */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a ListByPlayer response. */
+class PlayerEventListResponse {
+
+  /** The player events. */
+  core.List<PlayerEvent> items;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerEventListResponse. */
+  core.String kind;
+
+  /** The pagination token for the next page of results. */
+  core.String nextPageToken;
+
+  /** Create new PlayerEventListResponse from JSON data */
+  PlayerEventListResponse.fromJson(core.Map json) {
+    if (json.containsKey("items")) {
+      items = json["items"].map((itemsItem) => new PlayerEvent.fromJson(itemsItem)).toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for PlayerEventListResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (items != null) {
+      output["items"] = items.map((itemsItem) => itemsItem.toJson()).toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of PlayerEventListResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for 1P/3P metadata about the player's experience. */
+class PlayerExperienceInfo {
+
+  /** The current number of experience points for the player. */
+  core.int currentExperiencePoints;
+
+  /** The current level of the player. */
+  PlayerLevel currentLevel;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerExperienceInfo. */
+  core.String kind;
+
+  /** The timestamp when the player was leveled up, in millis since Unix epoch UTC. */
+  core.int lastLevelUpTimestampMillis;
+
+  /** The next level of the player. If the current level is the maximum level, this should be same as the current level. */
+  PlayerLevel nextLevel;
+
+  /** Create new PlayerExperienceInfo from JSON data */
+  PlayerExperienceInfo.fromJson(core.Map json) {
+    if (json.containsKey("currentExperiencePoints")) {
+      currentExperiencePoints = (json["currentExperiencePoints"] is core.String) ? core.int.parse(json["currentExperiencePoints"]) : json["currentExperiencePoints"];
+    }
+    if (json.containsKey("currentLevel")) {
+      currentLevel = new PlayerLevel.fromJson(json["currentLevel"]);
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("lastLevelUpTimestampMillis")) {
+      lastLevelUpTimestampMillis = (json["lastLevelUpTimestampMillis"] is core.String) ? core.int.parse(json["lastLevelUpTimestampMillis"]) : json["lastLevelUpTimestampMillis"];
+    }
+    if (json.containsKey("nextLevel")) {
+      nextLevel = new PlayerLevel.fromJson(json["nextLevel"]);
+    }
+  }
+
+  /** Create JSON Object for PlayerExperienceInfo */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (currentExperiencePoints != null) {
+      output["currentExperiencePoints"] = currentExperiencePoints;
+    }
+    if (currentLevel != null) {
+      output["currentLevel"] = currentLevel.toJson();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (lastLevelUpTimestampMillis != null) {
+      output["lastLevelUpTimestampMillis"] = lastLevelUpTimestampMillis;
+    }
+    if (nextLevel != null) {
+      output["nextLevel"] = nextLevel.toJson();
+    }
+
+    return output;
+  }
+
+  /** Return String representation of PlayerExperienceInfo */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -2410,6 +3312,62 @@ class PlayerLeaderboardScoreListResponse {
   }
 
   /** Return String representation of PlayerLeaderboardScoreListResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for 1P/3P metadata about a user's level. */
+class PlayerLevel {
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#playerLevel. */
+  core.String kind;
+
+  /** The level for the user. */
+  core.int level;
+
+  /** The maximum experience points for this level. */
+  core.int maxExperiencePoints;
+
+  /** The minimum experience points for this level. */
+  core.int minExperiencePoints;
+
+  /** Create new PlayerLevel from JSON data */
+  PlayerLevel.fromJson(core.Map json) {
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("level")) {
+      level = json["level"];
+    }
+    if (json.containsKey("maxExperiencePoints")) {
+      maxExperiencePoints = (json["maxExperiencePoints"] is core.String) ? core.int.parse(json["maxExperiencePoints"]) : json["maxExperiencePoints"];
+    }
+    if (json.containsKey("minExperiencePoints")) {
+      minExperiencePoints = (json["minExperiencePoints"] is core.String) ? core.int.parse(json["minExperiencePoints"]) : json["minExperiencePoints"];
+    }
+  }
+
+  /** Create JSON Object for PlayerLevel */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (level != null) {
+      output["level"] = level;
+    }
+    if (maxExperiencePoints != null) {
+      output["maxExperiencePoints"] = maxExperiencePoints;
+    }
+    if (minExperiencePoints != null) {
+      output["minExperiencePoints"] = minExperiencePoints;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of PlayerLevel */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -2785,7 +3743,7 @@ class PushTokenIdIos {
   /** Device token supplied by an iOS system call to register for remote notifications. Encode this field as web-safe base64. */
   core.String apns_device_token;
 
-  /** Use SANDBOX during development for the APNS test server at gateway.sandbox.push.apple.com or PRODUCTION for the production server at gateway.push.apple.com. */
+  /** Indicates whether this token should be used for the production or sandbox APNS server. */
   core.String apns_environment;
 
   /** Create new PushTokenIdIos from JSON data */
@@ -2813,6 +3771,409 @@ class PushTokenIdIos {
   }
 
   /** Return String representation of PushTokenIdIos */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a Quest resource. */
+class Quest {
+
+  /** The timestamp at which the user accepted the quest in milliseconds since the epoch in UTC. Only present if the player has accepted the quest. */
+  core.int acceptedTimestampMillis;
+
+  /** The ID of the application this quest is part of. */
+  core.String applicationId;
+
+  /** The banner image URL for the quest. */
+  core.String bannerUrl;
+
+  /** The description of the quest. */
+  core.String description;
+
+  /** The timestamp at which the quest ceases to be active in milliseconds since the epoch in UTC. */
+  core.int endTimestampMillis;
+
+  /** The icon image URL for the quest. */
+  core.String iconUrl;
+
+  /** The ID of the quest. */
+  core.String id;
+
+  /** Indicates whether the banner image being returned is a default image, or is game-provided. */
+  core.bool isDefaultBannerUrl;
+
+  /** Indicates whether the icon image being returned is a default image, or is game-provided. */
+  core.bool isDefaultIconUrl;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#quest. */
+  core.String kind;
+
+  /** The timestamp at which the quest was last updated by the user in milliseconds since the epoch in UTC. Only present if the player has accepted the quest. */
+  core.int lastUpdatedTimestampMillis;
+
+  /** The quest milestones. */
+  core.List<QuestMilestone> milestones;
+
+  /** The name of the quest. */
+  core.String name;
+
+  /** The timestamp at which the user should be notified that the quest will end soon in milliseconds since the epoch in UTC. */
+  core.int notifyTimestampMillis;
+
+  /** The timestamp at which the quest becomes active in milliseconds since the epoch in UTC. */
+  core.int startTimestampMillis;
+
+  /** The state of the quest.
+Possible values are:  
+- "UPCOMING": The quest is upcoming. The user can see the quest, but cannot accept it until it is open. 
+- "OPEN": The quest is currently open and may be accepted at this time. 
+- "ACCEPTED": The user is currently participating in this quest. 
+- "COMPLETED": The user has completed the quest. 
+- "FAILED": The quest was attempted but was not completed before the deadline expired. 
+- "EXPIRED": The quest has expired and was not accepted. 
+- "DELETED": The quest should be deleted from the local database. */
+  core.String state;
+
+  /** Create new Quest from JSON data */
+  Quest.fromJson(core.Map json) {
+    if (json.containsKey("acceptedTimestampMillis")) {
+      acceptedTimestampMillis = (json["acceptedTimestampMillis"] is core.String) ? core.int.parse(json["acceptedTimestampMillis"]) : json["acceptedTimestampMillis"];
+    }
+    if (json.containsKey("applicationId")) {
+      applicationId = json["applicationId"];
+    }
+    if (json.containsKey("bannerUrl")) {
+      bannerUrl = json["bannerUrl"];
+    }
+    if (json.containsKey("description")) {
+      description = json["description"];
+    }
+    if (json.containsKey("endTimestampMillis")) {
+      endTimestampMillis = (json["endTimestampMillis"] is core.String) ? core.int.parse(json["endTimestampMillis"]) : json["endTimestampMillis"];
+    }
+    if (json.containsKey("iconUrl")) {
+      iconUrl = json["iconUrl"];
+    }
+    if (json.containsKey("id")) {
+      id = json["id"];
+    }
+    if (json.containsKey("isDefaultBannerUrl")) {
+      isDefaultBannerUrl = json["isDefaultBannerUrl"];
+    }
+    if (json.containsKey("isDefaultIconUrl")) {
+      isDefaultIconUrl = json["isDefaultIconUrl"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("lastUpdatedTimestampMillis")) {
+      lastUpdatedTimestampMillis = (json["lastUpdatedTimestampMillis"] is core.String) ? core.int.parse(json["lastUpdatedTimestampMillis"]) : json["lastUpdatedTimestampMillis"];
+    }
+    if (json.containsKey("milestones")) {
+      milestones = json["milestones"].map((milestonesItem) => new QuestMilestone.fromJson(milestonesItem)).toList();
+    }
+    if (json.containsKey("name")) {
+      name = json["name"];
+    }
+    if (json.containsKey("notifyTimestampMillis")) {
+      notifyTimestampMillis = (json["notifyTimestampMillis"] is core.String) ? core.int.parse(json["notifyTimestampMillis"]) : json["notifyTimestampMillis"];
+    }
+    if (json.containsKey("startTimestampMillis")) {
+      startTimestampMillis = (json["startTimestampMillis"] is core.String) ? core.int.parse(json["startTimestampMillis"]) : json["startTimestampMillis"];
+    }
+    if (json.containsKey("state")) {
+      state = json["state"];
+    }
+  }
+
+  /** Create JSON Object for Quest */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (acceptedTimestampMillis != null) {
+      output["acceptedTimestampMillis"] = acceptedTimestampMillis;
+    }
+    if (applicationId != null) {
+      output["applicationId"] = applicationId;
+    }
+    if (bannerUrl != null) {
+      output["bannerUrl"] = bannerUrl;
+    }
+    if (description != null) {
+      output["description"] = description;
+    }
+    if (endTimestampMillis != null) {
+      output["endTimestampMillis"] = endTimestampMillis;
+    }
+    if (iconUrl != null) {
+      output["iconUrl"] = iconUrl;
+    }
+    if (id != null) {
+      output["id"] = id;
+    }
+    if (isDefaultBannerUrl != null) {
+      output["isDefaultBannerUrl"] = isDefaultBannerUrl;
+    }
+    if (isDefaultIconUrl != null) {
+      output["isDefaultIconUrl"] = isDefaultIconUrl;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (lastUpdatedTimestampMillis != null) {
+      output["lastUpdatedTimestampMillis"] = lastUpdatedTimestampMillis;
+    }
+    if (milestones != null) {
+      output["milestones"] = milestones.map((milestonesItem) => milestonesItem.toJson()).toList();
+    }
+    if (name != null) {
+      output["name"] = name;
+    }
+    if (notifyTimestampMillis != null) {
+      output["notifyTimestampMillis"] = notifyTimestampMillis;
+    }
+    if (startTimestampMillis != null) {
+      output["startTimestampMillis"] = startTimestampMillis;
+    }
+    if (state != null) {
+      output["state"] = state;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of Quest */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a Quest Criterion Contribution resource. */
+class QuestContribution {
+
+  /** The formatted value of the contribution as a string. Format depends on the configuration for the associated event definition in the Play Games Developer Console. */
+  core.String formattedValue;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#questContribution. */
+  core.String kind;
+
+  /** The value of the contribution. */
+  core.int value;
+
+  /** Create new QuestContribution from JSON data */
+  QuestContribution.fromJson(core.Map json) {
+    if (json.containsKey("formattedValue")) {
+      formattedValue = json["formattedValue"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("value")) {
+      value = (json["value"] is core.String) ? core.int.parse(json["value"]) : json["value"];
+    }
+  }
+
+  /** Create JSON Object for QuestContribution */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (formattedValue != null) {
+      output["formattedValue"] = formattedValue;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (value != null) {
+      output["value"] = value;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of QuestContribution */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a Quest Criterion resource. */
+class QuestCriterion {
+
+  /** The total number of times the associated event must be incremented for the player to complete this quest. */
+  QuestContribution completionContribution;
+
+  /** The number of increments the player has made toward the completion count event increments required to complete the quest. This value will not exceed the completion contribution.
+There will be no currentContribution until the player has accepted the quest. */
+  QuestContribution currentContribution;
+
+  /** The ID of the event the criterion corresponds to. */
+  core.String eventId;
+
+  /** The value of the event associated with this quest at the time that the quest was accepted. This value may change if event increments that took place before the start of quest are uploaded after the quest starts.
+There will be no initialPlayerProgress until the player has accepted the quest. */
+  QuestContribution initialPlayerProgress;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#questCriterion. */
+  core.String kind;
+
+  /** Create new QuestCriterion from JSON data */
+  QuestCriterion.fromJson(core.Map json) {
+    if (json.containsKey("completionContribution")) {
+      completionContribution = new QuestContribution.fromJson(json["completionContribution"]);
+    }
+    if (json.containsKey("currentContribution")) {
+      currentContribution = new QuestContribution.fromJson(json["currentContribution"]);
+    }
+    if (json.containsKey("eventId")) {
+      eventId = json["eventId"];
+    }
+    if (json.containsKey("initialPlayerProgress")) {
+      initialPlayerProgress = new QuestContribution.fromJson(json["initialPlayerProgress"]);
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+  }
+
+  /** Create JSON Object for QuestCriterion */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (completionContribution != null) {
+      output["completionContribution"] = completionContribution.toJson();
+    }
+    if (currentContribution != null) {
+      output["currentContribution"] = currentContribution.toJson();
+    }
+    if (eventId != null) {
+      output["eventId"] = eventId;
+    }
+    if (initialPlayerProgress != null) {
+      output["initialPlayerProgress"] = initialPlayerProgress.toJson();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of QuestCriterion */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a list of quest objects. */
+class QuestListResponse {
+
+  /** The quests. */
+  core.List<Quest> items;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#questListResponse. */
+  core.String kind;
+
+  /** Token corresponding to the next page of results. */
+  core.String nextPageToken;
+
+  /** Create new QuestListResponse from JSON data */
+  QuestListResponse.fromJson(core.Map json) {
+    if (json.containsKey("items")) {
+      items = json["items"].map((itemsItem) => new Quest.fromJson(itemsItem)).toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for QuestListResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (items != null) {
+      output["items"] = items.map((itemsItem) => itemsItem.toJson()).toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of QuestListResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a Quest Milestone resource. */
+class QuestMilestone {
+
+  /** The completion reward data of the milestone, represented as a Base64-encoded string. This is a developer-specified binary blob with size between 0 and 2 KB before encoding. */
+  core.String completionRewardData;
+
+  /** The criteria of the milestone. */
+  core.List<QuestCriterion> criteria;
+
+  /** The milestone ID. */
+  core.String id;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#questMilestone. */
+  core.String kind;
+
+  /** The current state of the milestone.
+Possible values are:  
+- "COMPLETED_NOT_CLAIMED" - The milestone is complete, but has not yet been claimed. 
+- "CLAIMED" - The milestone is complete and has been claimed. 
+- "NOT_COMPLETED" - The milestone has not yet been completed. 
+- "NOT_STARTED" - The milestone is for a quest that has not yet been accepted. */
+  core.String state;
+
+  /** Create new QuestMilestone from JSON data */
+  QuestMilestone.fromJson(core.Map json) {
+    if (json.containsKey("completionRewardData")) {
+      completionRewardData = json["completionRewardData"];
+    }
+    if (json.containsKey("criteria")) {
+      criteria = json["criteria"].map((criteriaItem) => new QuestCriterion.fromJson(criteriaItem)).toList();
+    }
+    if (json.containsKey("id")) {
+      id = json["id"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("state")) {
+      state = json["state"];
+    }
+  }
+
+  /** Create JSON Object for QuestMilestone */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (completionRewardData != null) {
+      output["completionRewardData"] = completionRewardData;
+    }
+    if (criteria != null) {
+      output["criteria"] = criteria.map((criteriaItem) => criteriaItem.toJson()).toList();
+    }
+    if (id != null) {
+      output["id"] = id;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (state != null) {
+      output["state"] = state;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of QuestMilestone */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -3884,6 +5245,9 @@ class ScoreSubmission {
   /** Additional information about this score. Values will contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
   core.String scoreTag;
 
+  /** Signature Values will contain URI-safe characters as defined by section 2.3 of RFC 3986. */
+  core.String signature;
+
   /** Create new ScoreSubmission from JSON data */
   ScoreSubmission.fromJson(core.Map json) {
     if (json.containsKey("kind")) {
@@ -3897,6 +5261,9 @@ class ScoreSubmission {
     }
     if (json.containsKey("scoreTag")) {
       scoreTag = json["scoreTag"];
+    }
+    if (json.containsKey("signature")) {
+      signature = json["signature"];
     }
   }
 
@@ -3916,11 +5283,238 @@ class ScoreSubmission {
     if (scoreTag != null) {
       output["scoreTag"] = scoreTag;
     }
+    if (signature != null) {
+      output["signature"] = signature;
+    }
 
     return output;
   }
 
   /** Return String representation of ScoreSubmission */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an snapshot object. */
+class Snapshot {
+
+  /** The cover image of this snapshot. May be absent if there is no image. */
+  SnapshotImage coverImage;
+
+  /** The description of this snapshot. */
+  core.String description;
+
+  /** The ID of the file underlying this snapshot in the Drive API. Only present if the snapshot is a view on a Drive file and the file is owned by the caller. */
+  core.String driveId;
+
+  /** The duration associated with this snapshot, in millis. */
+  core.int durationMillis;
+
+  /** The ID of the snapshot. */
+  core.String id;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#snapshot. */
+  core.String kind;
+
+  /** The timestamp (in millis since Unix epoch) of the last modification to this snapshot. */
+  core.int lastModifiedMillis;
+
+  /** The title of this snapshot. */
+  core.String title;
+
+  /** The type of this snapshot.
+Possible values are:  
+- "SAVE_GAME" - A snapshot representing a save game. */
+  core.String type;
+
+  /** The unique name provided when the snapshot was created. */
+  core.String uniqueName;
+
+  /** Create new Snapshot from JSON data */
+  Snapshot.fromJson(core.Map json) {
+    if (json.containsKey("coverImage")) {
+      coverImage = new SnapshotImage.fromJson(json["coverImage"]);
+    }
+    if (json.containsKey("description")) {
+      description = json["description"];
+    }
+    if (json.containsKey("driveId")) {
+      driveId = json["driveId"];
+    }
+    if (json.containsKey("durationMillis")) {
+      durationMillis = (json["durationMillis"] is core.String) ? core.int.parse(json["durationMillis"]) : json["durationMillis"];
+    }
+    if (json.containsKey("id")) {
+      id = json["id"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("lastModifiedMillis")) {
+      lastModifiedMillis = (json["lastModifiedMillis"] is core.String) ? core.int.parse(json["lastModifiedMillis"]) : json["lastModifiedMillis"];
+    }
+    if (json.containsKey("title")) {
+      title = json["title"];
+    }
+    if (json.containsKey("type")) {
+      type = json["type"];
+    }
+    if (json.containsKey("uniqueName")) {
+      uniqueName = json["uniqueName"];
+    }
+  }
+
+  /** Create JSON Object for Snapshot */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (coverImage != null) {
+      output["coverImage"] = coverImage.toJson();
+    }
+    if (description != null) {
+      output["description"] = description;
+    }
+    if (driveId != null) {
+      output["driveId"] = driveId;
+    }
+    if (durationMillis != null) {
+      output["durationMillis"] = durationMillis;
+    }
+    if (id != null) {
+      output["id"] = id;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (lastModifiedMillis != null) {
+      output["lastModifiedMillis"] = lastModifiedMillis;
+    }
+    if (title != null) {
+      output["title"] = title;
+    }
+    if (type != null) {
+      output["type"] = type;
+    }
+    if (uniqueName != null) {
+      output["uniqueName"] = uniqueName;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of Snapshot */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for an image of a snapshot. */
+class SnapshotImage {
+
+  /** The height of the image. */
+  core.int height;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#snapshotImage. */
+  core.String kind;
+
+  /** The MIME type of the image. */
+  core.String mime_type;
+
+  /** The URL of the image. This URL may be invalidated at any time and should not be cached. */
+  core.String url;
+
+  /** The width of the image. */
+  core.int width;
+
+  /** Create new SnapshotImage from JSON data */
+  SnapshotImage.fromJson(core.Map json) {
+    if (json.containsKey("height")) {
+      height = json["height"];
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("mime_type")) {
+      mime_type = json["mime_type"];
+    }
+    if (json.containsKey("url")) {
+      url = json["url"];
+    }
+    if (json.containsKey("width")) {
+      width = json["width"];
+    }
+  }
+
+  /** Create JSON Object for SnapshotImage */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (height != null) {
+      output["height"] = height;
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (mime_type != null) {
+      output["mime_type"] = mime_type;
+    }
+    if (url != null) {
+      output["url"] = url;
+    }
+    if (width != null) {
+      output["width"] = width;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of SnapshotImage */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** This is a JSON template for a list of snapshot objects. */
+class SnapshotListResponse {
+
+  /** The snapshots. */
+  core.List<Snapshot> items;
+
+  /** Uniquely identifies the type of this resource. Value is always the fixed string games#snapshotListResponse. */
+  core.String kind;
+
+  /** Token corresponding to the next page of results. If there are no more results, the token is omitted. */
+  core.String nextPageToken;
+
+  /** Create new SnapshotListResponse from JSON data */
+  SnapshotListResponse.fromJson(core.Map json) {
+    if (json.containsKey("items")) {
+      items = json["items"].map((itemsItem) => new Snapshot.fromJson(itemsItem)).toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for SnapshotListResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (items != null) {
+      output["items"] = items.map((itemsItem) => itemsItem.toJson()).toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of SnapshotListResponse */
   core.String toString() => JSON.encode(this.toJson());
 
 }

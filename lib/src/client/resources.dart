@@ -369,6 +369,128 @@ class ApplicationsResource_ {
   }
 }
 
+class EventsResource_ {
+
+  final Client _client;
+
+  EventsResource_(Client client) :
+      _client = client;
+
+  /**
+   * Returns a list showing the current progress on events in this application for the currently authenticated user.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [maxResults] - The maximum number of events to return in the response, used for paging. For any response, the actual number of events to return may be less than the specified maxResults.
+   *   Minimum: 1
+   *   Maximum: 100
+   *
+   * [pageToken] - The token returned by the previous request.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<PlayerEventListResponse> listByPlayer({core.String language, core.int maxResults, core.String pageToken, core.Map optParams}) {
+    var url = "events";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (maxResults != null) queryParams["maxResults"] = maxResults;
+    if (pageToken != null) queryParams["pageToken"] = pageToken;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new PlayerEventListResponse.fromJson(data));
+  }
+
+  /**
+   * Returns a list of the event definitions in this application.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [maxResults] - The maximum number of event definitions to return in the response, used for paging. For any response, the actual number of event definitions to return may be less than the specified maxResults.
+   *   Minimum: 1
+   *   Maximum: 100
+   *
+   * [pageToken] - The token returned by the previous request.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<EventDefinitionListResponse> listDefinitions({core.String language, core.int maxResults, core.String pageToken, core.Map optParams}) {
+    var url = "eventDefinitions";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (maxResults != null) queryParams["maxResults"] = maxResults;
+    if (pageToken != null) queryParams["pageToken"] = pageToken;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new EventDefinitionListResponse.fromJson(data));
+  }
+
+  /**
+   * Records a batch of changes to the number of times events have occurred for the currently authenticated user of this application.
+   *
+   * [request] - EventRecordRequest to send in this request
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<EventUpdateResponse> record(EventRecordRequest request, {core.String language, core.Map optParams}) {
+    var url = "events";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new EventUpdateResponse.fromJson(data));
+  }
+}
+
 class LeaderboardsResource_ {
 
   final Client _client;
@@ -453,6 +575,96 @@ class LeaderboardsResource_ {
   }
 }
 
+class MetagameResource_ {
+
+  final Client _client;
+
+  MetagameResource_(Client client) :
+      _client = client;
+
+  /**
+   * Return the metagame configuration data for the calling application.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<MetagameConfig> getMetagameConfig({core.Map optParams}) {
+    var url = "metagameConfig";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new MetagameConfig.fromJson(data));
+  }
+
+  /**
+   * List play data aggregated per category for the player corresponding to playerId.
+   *
+   * [playerId] - A player ID. A value of me may be used in place of the authenticated player's ID.
+   *
+   * [collection] - The collection of categories for which data will be returned.
+   *   Allowed values:
+   *     all - Retrieve data for all categories. This is the default.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [maxResults] - The maximum number of category resources to return in the response, used for paging. For any response, the actual number of category resources returned may be less than the specified maxResults.
+   *   Minimum: 1
+   *   Maximum: 100
+   *
+   * [pageToken] - The token returned by the previous request.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<CategoryListResponse> listCategoriesByPlayer(core.String playerId, core.String collection, {core.String language, core.int maxResults, core.String pageToken, core.Map optParams}) {
+    var url = "players/{playerId}/categories/{collection}";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (collection == null) paramErrors.add("collection is required");
+    if (collection != null && !["all"].contains(collection)) {
+      paramErrors.add("Allowed values for collection: all");
+    }
+    if (collection != null) urlParams["collection"] = collection;
+    if (language != null) queryParams["language"] = language;
+    if (maxResults != null) queryParams["maxResults"] = maxResults;
+    if (pageToken != null) queryParams["pageToken"] = pageToken;
+    if (playerId == null) paramErrors.add("playerId is required");
+    if (playerId != null) urlParams["playerId"] = playerId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new CategoryListResponse.fromJson(data));
+  }
+}
+
 class PlayersResource_ {
 
   final Client _client;
@@ -501,7 +713,8 @@ class PlayersResource_ {
    *
    * [collection] - Collection of players being retrieved
    *   Allowed values:
-   *     playedWith - Retrieve a list of players you have played a multiplayer game (realtime or turn-based) with recently.
+   *     playedWith - (DEPRECATED: please use played_with!) Retrieve a list of players you have played a multiplayer game (realtime or turn-based) with recently.
+   *     played_with - Retrieve a list of players you have played a multiplayer game (realtime or turn-based) with recently.
    *
    * [language] - The preferred language to use for strings returned by this method.
    *
@@ -520,8 +733,8 @@ class PlayersResource_ {
 
     var paramErrors = new core.List();
     if (collection == null) paramErrors.add("collection is required");
-    if (collection != null && !["playedWith"].contains(collection)) {
-      paramErrors.add("Allowed values for collection: playedWith");
+    if (collection != null && !["playedWith", "played_with"].contains(collection)) {
+      paramErrors.add("Allowed values for collection: playedWith, played_with");
     }
     if (collection != null) urlParams["collection"] = collection;
     if (language != null) queryParams["language"] = language;
@@ -611,6 +824,142 @@ class PushtokensResource_ {
     var response;
     response = _client.request(url, "PUT", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
     return response;
+  }
+}
+
+class QuestMilestonesResource_ {
+
+  final Client _client;
+
+  QuestMilestonesResource_(Client client) :
+      _client = client;
+
+  /**
+   * Report that a reward for the milestone corresponding to milestoneId for the quest corresponding to questId has been claimed by the currently authorized user.
+   *
+   * [questId] - The ID of the quest.
+   *
+   * [milestoneId] - The ID of the milestone.
+   *
+   * [requestId] - A numeric ID to ensure that the request is handled correctly across retries. Your client application must generate this ID randomly.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<core.Map> claim(core.String questId, core.String milestoneId, core.int requestId, {core.Map optParams}) {
+    var url = "quests/{questId}/milestones/{milestoneId}/claim";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (milestoneId == null) paramErrors.add("milestoneId is required");
+    if (milestoneId != null) urlParams["milestoneId"] = milestoneId;
+    if (questId == null) paramErrors.add("questId is required");
+    if (questId != null) urlParams["questId"] = questId;
+    if (requestId == null) paramErrors.add("requestId is required");
+    if (requestId != null) queryParams["requestId"] = requestId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "PUT", urlParams: urlParams, queryParams: queryParams);
+    return response;
+  }
+}
+
+class QuestsResource_ {
+
+  final Client _client;
+
+  QuestsResource_(Client client) :
+      _client = client;
+
+  /**
+   * Indicates that the currently authorized user will participate in the quest.
+   *
+   * [questId] - The ID of the quest.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<Quest> accept(core.String questId, {core.String language, core.Map optParams}) {
+    var url = "quests/{questId}/accept";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (questId == null) paramErrors.add("questId is required");
+    if (questId != null) urlParams["questId"] = questId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "POST", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new Quest.fromJson(data));
+  }
+
+  /**
+   * Get a list of quests for your application and the currently authenticated player.
+   *
+   * [playerId] - A player ID. A value of me may be used in place of the authenticated player's ID.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [maxResults] - The maximum number of quest resources to return in the response, used for paging. For any response, the actual number of quest resources returned may be less than the specified maxResults. Acceptable values are 1 to 50, inclusive. (Default: 50).
+   *   Minimum: 1
+   *   Maximum: 50
+   *
+   * [pageToken] - The token returned by the previous request.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<QuestListResponse> list(core.String playerId, {core.String language, core.int maxResults, core.String pageToken, core.Map optParams}) {
+    var url = "players/{playerId}/quests";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (maxResults != null) queryParams["maxResults"] = maxResults;
+    if (pageToken != null) queryParams["pageToken"] = pageToken;
+    if (playerId == null) paramErrors.add("playerId is required");
+    if (playerId != null) urlParams["playerId"] = playerId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new QuestListResponse.fromJson(data));
   }
 }
 
@@ -1249,6 +1598,94 @@ NOTE: You cannot ask for 'ALL' leaderboards and 'ALL' timeSpans in the same requ
     response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
     return response
       .then((data) => new PlayerScoreListResponse.fromJson(data));
+  }
+}
+
+class SnapshotsResource_ {
+
+  final Client _client;
+
+  SnapshotsResource_(Client client) :
+      _client = client;
+
+  /**
+   * Retrieves the metadata for a given snapshot ID.
+   *
+   * [snapshotId] - The ID of the snapshot.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<Snapshot> get(core.String snapshotId, {core.String language, core.Map optParams}) {
+    var url = "snapshots/{snapshotId}";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (snapshotId == null) paramErrors.add("snapshotId is required");
+    if (snapshotId != null) urlParams["snapshotId"] = snapshotId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new Snapshot.fromJson(data));
+  }
+
+  /**
+   * Retrieves a list of snapshots created by your application for the player corresponding to the player ID.
+   *
+   * [playerId] - A player ID. A value of me may be used in place of the authenticated player's ID.
+   *
+   * [language] - The preferred language to use for strings returned by this method.
+   *
+   * [maxResults] - The maximum number of snapshot resources to return in the response, used for paging. For any response, the actual number of snapshot resources returned may be less than the specified maxResults.
+   *   Minimum: 1
+   *   Maximum: 25
+   *
+   * [pageToken] - The token returned by the previous request.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<SnapshotListResponse> list(core.String playerId, {core.String language, core.int maxResults, core.String pageToken, core.Map optParams}) {
+    var url = "players/{playerId}/snapshots";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (language != null) queryParams["language"] = language;
+    if (maxResults != null) queryParams["maxResults"] = maxResults;
+    if (pageToken != null) queryParams["pageToken"] = pageToken;
+    if (playerId == null) paramErrors.add("playerId is required");
+    if (playerId != null) urlParams["playerId"] = playerId;
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new SnapshotListResponse.fromJson(data));
   }
 }
 

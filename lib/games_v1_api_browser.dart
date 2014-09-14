@@ -6,7 +6,11 @@ import 'package:google_games_v1_api/src/browser_client.dart';
 import "package:google_games_v1_api/games_v1_api_client.dart";
 
 /** The API for Google Play Game Services. */
+@deprecated
 class Games extends Client with BrowserClient {
+
+  /** OAuth Scope2: View and manage its own configuration data in your Google Drive */
+  static const String DRIVE_APPDATA_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
 
   /** OAuth Scope2: Share your Google+ profile information and view and manage your game activity */
   static const String GAMES_SCOPE = "https://www.googleapis.com/auth/games";
